@@ -1,0 +1,32 @@
+.fullscreen {
+    position: relative;
+    z-index: 9999;
+}
+
+.fullscreen .container {
+    opacity: 0;
+    pointer-events: none;
+}
+.fullscreen .container.show {
+    opacity: 1;
+}
+.fullscreen .container.show > * {
+    pointer-events: auto;
+}
+
+fullscreen-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--allpage-bg-color);
+    opacity: 0;
+    cursor: pointer;
+    pointer-events: none;
+    transition: opacity .3s .15s;
+}
+fullscreen-mask.show {
+    opacity: .6;
+    pointer-events: auto;
+}

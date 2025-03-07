@@ -1,0 +1,22 @@
+div.math {
+    max-width: 100%; /* prevent overflow*/
+    margin: 1rem 0;
+    color: var(--default-tx-color);
+    font-size: 1.125rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    line-height: 1.75;
+    box-sizing: border-box;
+}
+span.math img {
+    /* for server side rendered formula */
+    height: calc(1em + 16px);
+    vertical-align: middle;
+}
+
+body.dark span.math img,
+body.dark div.math img {
+    /* convert white background into #161616 */
+    filter: invert(.915);
+}

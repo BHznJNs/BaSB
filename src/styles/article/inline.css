@@ -1,0 +1,173 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    overflow-wrap: break-word;
+    color: inherit;
+    transition: color .3s .15s;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.8em;
+}
+
+h3 {
+    font-size: 1.6em;
+}
+
+h4 {
+    font-size: 1.4em;
+}
+
+h5 {
+    font-size: 1.2em;
+}
+
+h6 {
+    font-size: 1.1em;
+}
+
+code:not(pre code) {
+    /* inline code style */
+    padding: 1px 8px;
+    margin: 0 4px;
+    color: var(--default-inline-code-color);
+    background-color: var(--default-inline-code-bg-color);
+    font-family: var(--code-font);
+    border-radius: 8px;
+    box-shadow: none !important;
+    transition: color .3s .15s,
+                background .3s .15s;
+}
+
+a::before {
+    display: inline-block;
+    content: "🔗";
+    font-size: .875em;
+}
+a:link {
+    color: var(--default-link-unvisited-color);
+}
+a:visited {
+    color: var(--default-link-visited-color);
+}
+
+u {
+    position: relative;
+    bottom: 0;
+    text-decoration: none;
+    background-image: linear-gradient(to right, var(--default-tx-color), var(--default-tx-color));
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    background-size: 100% 1px;
+    transition: bottom .3s .05s,
+                padding .3s .05s,
+                background-size .3s;
+}
+u:hover {
+    bottom: 1px;
+    padding-bottom: 2px;
+    background-size: 100% 3px;
+}
+
+del {
+    padding: 0 2px;
+    text-decoration: none;
+    background-image: linear-gradient(to right, var(--default-tx-color), var(--default-tx-color));
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 100% 2px;
+    transition: background-size .3s;
+}
+del:hover {
+    background-size: 100% 4px;
+}
+
+span.dim {
+    /* dimmed text */
+    opacity: .7;
+}
+.dark span.dim {
+    opacity: .8;
+}
+
+hr {
+    margin: 0 6vw calc(1rem + 4px);
+    padding: .3rem 0;
+    border: none;
+    border-bottom: 2px solid var(--deep-bd-color);
+    color: transparent;
+    transition: margin .3s;
+}
+hr:hover {
+    margin-left : 2vw;
+    margin-right: 2vw;
+}
+
+/* phonetic notation start */
+ruby {
+    position: relative;
+}
+ruby::before {
+    position: absolute;
+    left: 50%;
+    bottom: calc(1em + 4px);
+    transform: translateX(-50%);
+    content: attr(data-notation);
+    padding: 2px 6px;
+    white-space: nowrap;
+    background-color: var(--default-bg-color);
+    border-radius: 4px;
+    opacity: 0;
+    z-index: 1;
+    pointer-events: none;
+    transition: opacity .3s .05s;
+}
+ruby:hover::before {
+    opacity: 1;
+}
+
+ruby rt {
+    position: relative;
+    top: 0;
+    opacity: 1;
+    font-size: 9px;
+    transition: opacity .3s;
+}
+ruby:hover rt {
+    opacity: 0;
+}
+/* phonetic notation end */
+
+/* detail start */
+span.detail {
+    position: relative;
+    cursor: pointer;
+    text-decoration: underline wavy var(--default-tx-color);
+}
+span.detail > div.detail-content {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 50%;
+    width: max-content;
+    max-width: 14rem;
+    padding: 2px 6px;
+    background-color: var(--default-bg-color);
+    border-radius: 4px;
+    cursor: auto;
+    opacity: 1;
+    transform: translateX(-50%);
+    transition: opacity .3s;
+}
+span.detail[data-collapse] > div.detail-content {
+    opacity: 0;
+    pointer-events: none;
+}
+/* detail end */

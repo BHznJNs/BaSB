@@ -1,0 +1,26 @@
+paging-view {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+}
+paging-view.hidden {
+    display: none;
+}
+paging-view .icon-btn {
+    height: 2.4rem;
+    font-weight: bold;
+}
+paging-view .icon-btn:hover span {
+    transform: translateY(-2px);
+}
+paging-view #next-btn span::before {
+    /* reverse the direction of underline animation */
+    left: unset;
+    right: 0;
+}
+paging-view label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}

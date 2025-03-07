@@ -1,0 +1,83 @@
+ol,
+ul,
+li {
+    --border-radius-value: 6px;
+    color: inherit;
+    transition: background .3s,
+                color .3s .15s;
+}
+
+ol {
+    padding-left: 0;
+    list-style: none;
+    overflow-wrap: break-word;
+}
+ul {
+    margin-left: 0;
+    padding-left: 1.625em;
+    overflow-wrap: break-word;
+}
+
+ol li,
+ul li {
+    margin-bottom: .25em;
+}
+
+ol > ul {
+    margin-left: 1rem;
+}
+ol > ol {
+    padding-left: 1.625rem;
+}
+
+ul > li {
+    padding-left: 5px;
+    border-radius: var(--border-radius-value);
+}
+ul > li:hover {
+    background-color: var(--hovered-bg-color);
+}
+ul > li::marker {
+    font-size: 1.25em;
+    color: var(--default-tx-color);
+    transition: color .3s;
+}
+ul > li:hover::marker {
+    color: var(--deep-bd-color);
+}
+
+ol > li {
+    counter-increment: list-item;
+    margin-bottom: 0;
+    padding: 4px;
+    overflow-wrap: anywhere;
+    border-radius: var(--border-radius-value);
+}
+ol > li:hover {
+    background-color: var(--hovered-bg-color);
+}
+ol > li::before {
+    content: counter(list-item);
+    padding: 0 .375em 1px;
+    margin-right: .5em;
+    color: var(--default-bg-color);
+    background-color: var(--default-tx-color);
+    border-radius: var(--border-radius-value);
+    font-weight: normal;
+    font-family: var(--code-font);
+    transition: inherit;
+}
+
+li.task-list-item {
+    list-style: none;
+    margin-left: -1.6em;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+li.task-list-item input[type=checkbox] {
+    width: 1em;
+    height: 1em;
+    margin: 0 .6em .2em 0;
+    vertical-align: middle;
+    font-size: inherit;
+}

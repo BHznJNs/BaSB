@@ -1,0 +1,51 @@
+/* Underlined animations */
+.underline-through .underline-target {
+    position: relative;
+    bottom: 0;
+    padding-bottom: 2px;
+    background-image: linear-gradient(
+        to right,
+        var(--default-tx-color),
+        var(--default-tx-color)
+    );
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    background-size: 0 2px;
+    transition: bottom .3s,
+                background-size .3s;
+}
+
+.underline-through:hover .underline-target {
+    bottom: 2px;
+    background-position: left bottom;
+    background-size: 100% 2px;
+}
+
+/* --- --- --- --- --- --- */
+
+.underline-side .underline-target {
+    transition: transform .3s;
+}
+.underline-side:hover .underline-target {
+    transform: translateY(-3px);
+}
+
+.underline-side .underline-target::before {
+    display: block;
+    position: absolute;
+    bottom: -2px;
+    content: " ";
+    border-bottom: solid 2px var(--default-tx-color);
+    width: 0;
+    transition: width .3s;
+}
+.underline-side:hover .underline-target::before {
+    width: 100%;
+}
+
+.underline-side.left .underline-target::before {
+    left: 0;
+}
+.underline-side.right .underline-target::before {
+    right: 0;
+}

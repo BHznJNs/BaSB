@@ -1,0 +1,14 @@
+{
+    "name": "frappe-gantt",
+    "version": "0.6.1",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/frappe/gantt.git"
+    },
+    "author": "Faris Ansari",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/frappe/gantt/issues"
+    },
+    "homepage": "https://github.com/frappe/gantt"
+}

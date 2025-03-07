@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Railroad Chart Renderer</title>
+</head>
+<body>
+    <div id="render-target"></div>
+    <script type="module">
+        import rr, { Options } from "../../../src/libs/railroad-diagrams/railroad.js"
+
+        globalThis.chartOptions = Options
+        globalThis.moduleConstants = [
+            rr.Diagram,
+            rr.ComplexDiagram,
+            rr.Sequence,
+            rr.Stack,
+            rr.OptionalSequence,
+            rr.AlternatingSequence,
+            rr.Choice,
+            rr.HorizontalChoice,
+            rr.MultipleChoice,
+            rr.Optional,
+            rr.OneOrMore,
+            rr.ZeroOrMore,
+            rr.Group,
+            rr.Start,
+            rr.End,
+            rr.Terminal,
+            rr.NonTerminal,
+            rr.Comment,
+            rr.Skip,
+            rr.Block,
+        ]
+    </script>
+    <script>
+        const { ipcRenderer } = require("electron")
+        const { writeFileSync, readFileSync } = require("node:fs")
+
+        const styleTextContent = readFileSync("./src/libs/railroad-diagrams/style-ssr.css")
+
+        ipcRenderer.once("chart-content", (_, {
+            chartContent,
+            renderOptions,
+            savePath,
+        }) => {
+            Object.assign(globalThis.chartOptions, {
+                VS                : renderOptions.verticalGap,
+                AR                : renderOptions.arcRadius,
+                INTERNAL_ALIGNMENT: renderOptions.internalAlignment,
+                CHAR_WIDTH        : renderOptions.charWidth,
+                COMMENT_CHAR_WIDTH: renderOptions.commentCharWidth,
+            })
+
+            const targetEl = document.querySelector("#render-target")
+            const renderArgs = moduleConstants.concat(targetEl)
+            const renderFn = new Function(
+                "Diagram",
+                "ComplexDiagram",
+                "Sequence",
+                "Stack",
+                "OptionalSequence",
+                "AlternatingSequence",
+                "Choice",
+                "HorizontalChoice",
+                "MultipleChoice",
+                "Optional",
+                "OneOrMore",
+                "ZeroOrMore",
+                "Group",
+                "Start",
+                "End",
+                "Terminal",
+                "NonTerminal",
+                "Comment",
+                "Skip",
+                "Block",
+                "targetElement",
+                chartContent + ".addTo(targetElement)",
+            )
+
+            try {
+                renderFn.apply(null, renderArgs)
+            } catch(err) {
+                ipcRenderer.send("render-error", err.message)
+                return
+            }
+
+            const SVGEl = targetEl.querySelector("svg")
+            const styleEl = document.createElement("style")
+            styleEl.innerHTML = styleTextContent
+            SVGEl.setAttribute("xmlns", "http://www.w3.org/2000/svg")
+            SVGEl.appendChild(styleEl)
+
+            const SVGContent = targetEl.innerHTML
+            writeFileSync(savePath, SVGContent)
+
+            ipcRenderer.send("render-ended")
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+article-catalog {
+    --top-margin: calc(5rem + 12px);
+    --item-margin-step: .875rem;
+
+    color: var(--default-tx-color);
+    background-color: var(--default-bg-color);
+    overflow: auto;
+    box-sizing: border-box;
+    z-index: 100;
+    transition: background .6s,
+                border-radius .3s .15s,
+                transform .45s;
+}
+
+@media screen and (min-width: 768px) {
+    /* desktop styles */
+    article-catalog {
+        position: sticky;
+        top: 0;
+        height: calc(100vh - var(--top-margin));
+        border-top-right-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        box-shadow: var(--shadow-lg);
+    }
+    article-catalog.top-stuck {
+        border-top-right-radius: 0;
+    }
+    article-catalog.bottom-stuck {
+        border-bottom-right-radius: 0;
+    }
+}
+@media screen and (max-width: 767px) {
+    /* mobile styles */
+    article-catalog {
+        position: fixed;
+        top: calc(var(--top-margin) + 4rem) !important;
+        left: var(--page-horizonal-padding);
+        right: var(--page-horizonal-padding);
+        bottom: 0;
+        height: auto;
+        border-top-left-radius: .75rem;
+        border-top-right-radius: .75rem;
+        box-shadow: var(--shadow-md-2);
+    }
+    #article-container:not(.with-catalog) article-catalog {
+        transform: translateY(calc(100% + 16px));
+    }
+}
+
+article-catalog ol li {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    user-select: none;
+    cursor: pointer;
+}
+
+article-catalog li * {
+    /* prevent to trigger events */
+    pointer-events: none;
+}
+
+article-catalog .level-h1 {
+    font-weight: bold;
+}
+article-catalog .level-h2 {
+    /* ignored */
+}
+article-catalog .level-h3 {
+    margin-left: calc(var(--item-margin-step) * 1);
+}
+article-catalog .level-h4 {
+    margin-left: calc(var(--item-margin-step) * 2);
+}
+article-catalog .level-h5 {
+    margin-left: calc(var(--item-margin-step) * 3);
+}
+article-catalog .level-h6 {
+    margin-left: calc(var(--item-margin-step) * 4);
+}

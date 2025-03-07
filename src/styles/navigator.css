@@ -1,0 +1,57 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 1rem var(--page-horizonal-padding) 1.5rem;
+    padding: 0 8px;
+    user-select: none;
+}
+
+@media screen and (max-width: 767px) {
+    nav {
+        padding: 0 1rem;
+    }
+}
+
+body.dark #homepage img,
+body.dark #rss-icon img,
+body.dark #search-btn img {
+    filter: invert(100%);
+}
+
+nav > span {
+    display: flex;
+    column-gap: .75rem;
+}
+nav .icon-btn {
+    box-sizing: content-box;
+}
+nav .icon-btn img {
+    aspect-ratio: 1;
+}
+
+#homepage {
+    margin-right: 6px;
+}
+#homepage img {
+    padding-right: .4rem;
+}
+#homepage span {
+    margin-right: .2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+nav a::before {
+    content: none;
+    display: unset;
+}
+
+.dark #dark-btn {
+    display: none;
+}
+body.light #light-btn {
+    display: none;
+}
+
+

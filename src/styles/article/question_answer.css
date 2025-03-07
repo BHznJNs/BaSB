@@ -1,0 +1,35 @@
+div.qa-block {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    margin: 1rem 0;
+}
+
+body.light div.qa-block {
+    --questioning-bg-color: #D0E2FF;
+    --answering-bg-color: #eee;
+}
+
+body.dark div.qa-block {
+    --questioning-bg-color: #2E4057;
+    --answering-bg-color: #333;
+}
+
+div.question,
+div.answer {
+    width: fit-content;
+    max-width: 80%;
+    padding: .75rem;
+    border-radius: 6px;
+    transition: background .6s,
+                color .3s .15s;
+}
+
+div.question {
+    margin-left: auto;
+    background-color: var(--questioning-bg-color);
+}
+
+div.answer {
+    background-color: var(--answering-bg-color);
+}

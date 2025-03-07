@@ -1,0 +1,113 @@
+fab-icon {
+    --fab-size: 64px;
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    width: var(--fab-size);
+    height: var(--fab-size);
+    z-index: 1000; /* at the most top */
+    transition: opacity .3s, transform .3s;
+}
+fab-icon.hidden {
+    transform: translateY(calc(1rem + var(--fab-size) / 3));
+}
+
+fab-icon button {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    background-color: var(--fab-bg-color);
+    border: none;
+    border-radius: 50%;
+    outline: solid 3px transparent;
+    cursor: pointer;
+}
+fab-icon button:hover {
+    background-color: var(--hovered-bg-color);
+}
+fab-icon button:focus-visible {
+    outline-color: var(--default-tx-color);
+}
+fab-icon button:disabled {
+    opacity: .6;
+    pointer-events: none;
+}
+
+fab-icon #switcher {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: var(--shadow-md-1);
+    z-index: var(--fab-item-count);
+    transition: background .3s,
+                filter .3s,
+                opacity .3s,
+                box-shadow .3s,
+                outline-color .3s,
+                transform .3s .25s;
+}
+fab-icon #switcher:hover {
+    box-shadow: var(--shadow-md-2);
+}
+fab-icon button:not(#switcher) {
+    --animation-duration: .175s;
+    --z-index-value: calc(var(--fab-item-count) - var(--fab-item-index));
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    box-shadow: var(--shadow-sm);
+    z-index: var(--z-index-value);
+    transform: translateY(calc(-4px - var(--fab-item-index) * var(--fab-size)));
+    transition: background .3s,
+                filter .3s,
+                opacity .3s,
+                box-shadow .3s,
+                outline-color .3s,
+                transform calc(var(--fab-item-index) * var(--animation-duration)) var(--animation-duration);
+}
+fab-icon.hidden button:not(#switcher) {
+    --animation-duration: .15s;
+    transition: background .3s,
+                filter .3s,
+                box-shadow .3s,
+                transform calc(var(--fab-item-index) * var(--animation-duration))
+                          calc(var(--z-index-value)  * var(--animation-duration) + .15s) linear;
+}
+fab-icon button:not(#switcher):hover {
+    box-shadow: var(--shadow-md-1);
+}
+fab-icon.hidden button:not(#switcher) {
+    transform: translateY(0);
+}
+
+fab-icon button img {
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.dark fab-icon > button > img {
+    filter: invert(1);
+}
+fab-icon #switcher img {
+    width: 80%;
+    height: 80%;
+    padding-bottom: 0;
+    transform: rotate(-180deg);
+    transition: padding .3s .25s,
+                transform .3s .25s;
+}
+fab-icon.hidden #switcher img {
+    padding-bottom: 12px;
+    transform: rotate(0);
+}
+fab-icon button:not(#switcher) img {
+    width: 65%;
+    height: 65%;
+}
+fab-icon.unseen button:not(#switcher) img {
+    /* to reduce the loading priority */
+    visibility: hidden;
+}

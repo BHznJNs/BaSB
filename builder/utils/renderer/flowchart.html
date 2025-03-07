@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flowchart Renderer</title>
+</head>
+<body>
+    <div id="render-target"></div>
+
+    <script src="../../../src/libs/flowchart.js/raphael.min.js"></script>
+    <script src="../../../src/libs/flowchart.js/flowchart.js"></script>
+    <script>
+        const { ipcRenderer } = require("electron")
+        const { writeFileSync } = require("node:fs")
+
+        ipcRenderer.once("chart-content", (_, {
+            chartContent,
+            renderOptions,
+            savePath,
+        }) => {
+            const targetEl = document.querySelector("#render-target")
+
+            try {
+                const chartInst = flowchart.parse(chartContent)
+                chartInst.drawSVG(targetEl, renderOptions)
+            } catch(err) {
+                ipcRenderer.send("render-error", err.message)
+                return
+            }
+
+            const SVGContent = targetEl.innerHTML
+            writeFileSync(savePath, SVGContent)
+
+            ipcRenderer.send("render-ended")
+        })
+    </script>
+</body>
+</html>

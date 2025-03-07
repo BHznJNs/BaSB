@@ -1,0 +1,25 @@
+article:empty::before,
+article:empty::after {
+    /* skeleton elements */
+    display: block;
+    content: "";
+    height: 1em;
+    transition: background .3s .15s;
+}
+article:empty::before {
+    /* skeleton header */
+    width: 40%;
+    min-width: 30vw;
+    font-size: 2em;
+    margin: .67em 0;
+    background-color: var(--skeleton-bd-color);
+    border-radius: 6px;
+}
+article:empty::after {
+    /* skeleton content */
+    width: 100%;
+    font-size: 1em;
+    margin: 1em 0;
+    background-color: var(--skeleton-bd-color);
+    border-radius: 4px;
+}

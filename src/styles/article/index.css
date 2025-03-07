@@ -1,0 +1,74 @@
+@import url(./inline.css);
+@import url(./list.css);
+@import url(./formula.css);
+@import url(./question_answer.css);
+@import url(./table.css);
+@import url(./media.css);
+@import url(./code_block.css);
+@import url(./details_block.css);
+@import url(./quote_block.css);
+
+article {
+    min-width: 0;
+    margin: 0 var(--page-horizonal-padding);
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    color: var(--default-tx-color);
+    background-color: var(--default-bg-color);
+    box-shadow: var(--shadow-lg);
+    box-sizing: border-box;
+    transition: margin-right .3s,
+                border-radius .3s .2s,
+                opacity .45s,
+                background .6s;
+}
+
+body > article:first-child {
+    /* for single article page style */
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+#article-container {
+    width: 100%;
+    overflow-x: hidden;
+    /* prevent the shadow of `article` be hidden */
+    padding-top: 2rem;
+    margin-top: -2rem;
+    padding-bottom: 2rem;
+    margin-bottom: -2rem;
+}
+@media screen and (min-width: 768px) {
+    #article-container {
+        display: grid;
+        grid-template-columns: 0 1fr;
+    }
+    #article-container.with-catalog {
+        display: grid;
+        grid-template-columns: min(360px, 36vw) 1fr;
+        gap: 2rem;
+    }
+    #article-container.with-catalog article {
+        margin: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    /* Mobile phone style */
+    article {
+        padding: 1rem 1.6rem;
+        border-radius: .75rem;
+        box-shadow: var(--shadow-md-2);
+    }
+    #article-container.with-catalog article {
+        width: auto;
+        margin-left: var(--page-horizonal-padding);
+        margin-right: var(--page-horizonal-padding);
+        border-radius: .75rem;
+        pointer-events: none;
+        user-select: none;
+        opacity: .6;
+    }
+}

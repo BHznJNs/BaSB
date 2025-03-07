@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gantt Chart Renderer</title>
+    <link rel="stylesheet" href="../../../src/libs/frappe-gantt/frappe-gantt-original.css">
+</head>
+<body>
+    <div id="render-target"></div>
+    <script type="module">
+        import Gantt from "../../../src/libs/frappe-gantt/frappe-gantt.js"
+        window.Gantt = Gantt
+    </script>
+    <script>
+        const { ipcRenderer } = require("electron")
+        const html2canvas = require("html2canvas")
+        const { writeFileSync } = require("node:fs")
+
+        ipcRenderer.once("chart-content", async (_, {
+            chartContent,
+            renderOptions,
+            savePath,
+        }) => {
+            const _chartContent = new Function(`return [${chartContent}]`)()
+            const targetEl = document.querySelector("#render-target")
+            try {
+                new Gantt(targetEl, _chartContent, renderOptions)
+            } catch(err) {
+                ipcRenderer.send("render-error", err)
+                return
+            }
+
+            const canvas = await html2canvas(targetEl)
+
+            document.body.appendChild(canvas)
+            canvas.toBlob(async blob => {
+                const buffer = await blob.arrayBuffer()
+                const viewer = new DataView(buffer)
+                writeFileSync(savePath, viewer)
+                ipcRenderer.send("render-ended")
+            })
+        })
+    </script>
+</body>
+</html>

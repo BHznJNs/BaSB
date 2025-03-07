@@ -1,0 +1,188 @@
+div.media-container {
+    max-height: 80vh;
+    margin: 1rem 2rem;
+    background-color: var(--default-bg-color);
+    border-radius: 8px;
+    box-shadow: var(--shadow-md-1);
+    overflow: auto;
+    transition: background .3s .15s,
+                box-shadow .3s;
+}
+
+@media screen and (max-width: 767px) {
+    /* Mobile phone style */
+    div.media-container:not(blockquote div.media-container) {
+        width: calc(100% + 3.2rem);
+        margin-left: -1.6rem;
+        margin-right: -1.6rem;
+        border-radius: 0;
+    }
+    blockquote > div.media-container {
+        margin-left: -1rem;
+        margin-right: 0;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}
+@media screen and (min-width: 768px) {
+    div.media-container.image {
+        width: fit-content;
+        max-width: 100%;
+    }
+}
+@media screen and (min-width: 960px) {
+    /* PC style */
+    div.media-container:not(blockquote div.media-container) {
+        margin-left: 4rem;
+        margin-right: 4rem;
+        border-radius: 16px;
+    }
+}
+
+div.media-container:hover {
+    box-shadow: var(--shadow-md-2);
+}
+
+div.media-container img {
+    width: 100%;
+    vertical-align: bottom;
+    cursor: pointer;
+}
+div.media-container video,
+div.media-container audio,
+div.media-container iframe {
+    width: 100%;
+    vertical-align: bottom;
+}
+
+/*
+    Image load error solution reference:
+    https://www.zhangxinxu.com/wordpress/2020/10/css-style-image-load-fail/
+*/
+div.media-container img.load-error {
+    position: relative;
+    display: inline-block;
+    cursor: auto;
+    width: 100%;
+    height: 16rem;
+    max-height: 40vh;
+}
+div.media-container img.load-error::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: "";
+    color: transparent;
+    background-color: #f5f5f5;
+    background-image: url(./imgs/broken-image.svg);
+    background-repeat: no-repeat;
+    background-position: 50% calc(50% - 8px);
+    background-size: 85% 85%;
+    transition: filter .3s .15s,
+                background .3s .15s;
+}
+div.media-container img.load-error::after {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    content: attr(alt);
+    max-width: 100%;
+    padding: 1px .6rem;
+    line-height: 2;
+    color: white;
+    background-color: rgba(0,0,0,.65);
+    border-top-right-radius: 6px;
+    font-size: .875rem;
+    text-align: start;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color .3s .15s,
+                background .3s .15s;
+}
+
+.dark div.media-container img.load-error::before {
+    background-color: #dfddda;
+    filter: invert(1);
+}
+.dark div.media-container img.load-error::after {
+    color: black;
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
+div.media-container iframe {
+    border: none;
+    height: 50vh;
+    background-color: var(--default-bg-color);
+}
+
+/* Charts styles start */
+
+div.media-container .echarts-container {
+    width: 100%;
+    height: 600px;
+    max-height: 60vh;
+}
+
+div.media-container .flowchart-container,
+div.media-container .sequencechart-container,
+div.media-container .ganttchart-container {
+    padding: 8px;
+    background-color: var(--chart-bg-color);
+    transition: background .3s .15s;
+}
+
+.flowchart-container svg,
+.sequencechart-container svg {
+    width: 100%;
+}
+.railroad-container svg {
+    width: 100%;
+    background-color: var(--chart-bg-color) !important;
+    transition: background .3s .15s;
+}
+body.dark .flowchart-container svg,
+body.dark .sequencechart-container svg {
+    filter: invert(.85);
+}
+
+div.media-container .qrcode-container {
+    margin: 0 auto;
+}
+
+/* Charts styles end */
+
+
+/* Chrome/Edge `audio` element style start */
+audio::-webkit-media-controls-panel {
+    background-color: var(--default-bg-color);
+}
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display {
+    color: var(--default-tx-color);
+}
+@media (prefers-color-scheme: light) {
+    /* dark mode style when the dark mode is disabled in OS */
+    .dark audio::-webkit-media-controls-play-button,
+    .dark audio::-webkit-media-controls-mute-button,
+    .dark audio::-webkit-media-controls-volume-slider,
+    .dark audio::-webkit-media-controls-timeline {
+        filter: invert(.85);
+    }
+}
+@media (prefers-color-scheme: dark) {
+    /* light mode style when the dark mode is enabled in OS */
+    body.light audio::-webkit-media-controls-current-time-display,
+    body.light audio::-webkit-media-controls-time-remaining-display {
+        text-shadow: 0 0 1px var(--default-tx-color);
+    }
+
+    body.light audio::-webkit-media-controls-play-button,
+    body.light audio::-webkit-media-controls-mute-button,
+    body.light audio::-webkit-media-controls-volume-slider,
+    body.light audio::-webkit-media-controls-timeline {
+        filter: invert(.85);
+    }
+}

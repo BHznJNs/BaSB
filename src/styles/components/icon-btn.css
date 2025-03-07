@@ -1,0 +1,45 @@
+.icon-btn {
+    display: inline-flex;
+    height: 2rem;
+    align-items: center;
+    padding: 6px .4rem;
+    color: var(--default-tx-color) !important;
+    background-color: var(--default-bg-color);
+    border: solid 1px var(--btn-bd-color);
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    outline: none;
+    text-decoration: none !important;
+    transition: background .3s,
+                border-color .3s,
+                box-shadow .3s,
+                opacity .3s;
+}
+.icon-btn:hover {
+    border-color: var(--hovered-bg-color);
+    background-color: var(--hovered-bg-color);
+    box-shadow: var(--shadow-md-1);
+}
+.icon-btn:focus-visible {
+    border-color: var(--default-tx-color);
+}
+.icon-btn:disabled {
+    pointer-events: none;
+    opacity: .6;
+}
+
+.dark .icon-btn {
+    border-width: 2px;
+}
+
+.icon-btn img {
+    height: 2rem;
+    aspect-ratio: 1;
+    transition: filter .3s .15s;
+}
+
+.icon-btn span {
+    transition: color .3s .15s,
+                transform .3s;
+}

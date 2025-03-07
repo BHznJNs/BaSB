@@ -1,0 +1,92 @@
+div.details {
+    margin: 1rem 0;
+}
+
+div.details details {
+    padding: 0 1rem;
+    border-radius: 8px;
+    transition: background .3s,
+                padding .3s .05s,
+                box-shadow .3s .05s;
+}
+
+@media screen and (max-width: 767px) {
+    /* Mobile phone style */
+    div.details .details-children-container > .details-children {
+        padding: 0 1.6rem !important;
+    }
+    div.details .details-children > pre:last-child,
+    div.details .details-children > div.media-container:last-child {
+        margin-bottom: 0;
+    }
+
+    /* details node under blockquote */
+    blockquote > .details {
+        margin-left: -1rem;
+    }
+    blockquote > .details details {
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+    blockquote > .details .details-children-container {
+        margin: 0;
+        border-bottom-left-radius: 0;
+    }
+    blockquote > .details .details-children pre code {
+        border-radius: 0;
+    }
+    blockquote > .details .details-children pre,
+    blockquote > .details .details-children div.media-container {
+        margin-left: -1.6rem;
+        margin-right: -1.6rem;
+        border-radius: 0;
+    }
+}
+
+
+body.light details[open] {
+    background-color: var(--default-bg-color);
+}
+
+div.details details[open] {
+    padding-top: .6rem;
+    padding-bottom: .6rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.dark div.details details[open] {
+    background-color: var(--shallow-bd-color);
+}
+
+div.details details summary {
+    color: var(--default-tx-color);
+    font-size: 1.2em;
+    outline: none;
+    user-select: none;
+    cursor: pointer;
+    transition: color .3s .15s;
+}
+div.details details summary:focus-visible {
+    outline: auto;
+}
+
+div.details .details-children-container {
+    display: grid;
+    grid-template-rows: 0fr;
+    border: 2px solid transparent;
+    border-top: none;
+    overflow: hidden;
+    transition: grid-template-rows .3s .15s,
+                border .3s .15s;
+}
+div.details .details-children-container > .details-children {
+    padding: 0 1rem;
+    min-height: 0;
+    overflow: hidden;
+}
+div.details details[open] + .details-children-container {
+    grid-template-rows: 1fr;
+    border-color: var(--shallow-bd-color);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}

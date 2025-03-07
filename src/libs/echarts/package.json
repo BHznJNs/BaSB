@@ -1,0 +1,22 @@
+{
+    "name": "echarts",
+    "version": "5.5.0",
+    "description": "Apache ECharts is a powerful, interactive charting and data visualization library for browser",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/apache/echarts",
+    "keywords": [
+        "echarts",
+        "data-visualization",
+        "charts",
+        "charting-library",
+        "visualization",
+        "apache",
+        "data-viz",
+        "canvas",
+        "svg"
+    ],
+    "dependencies": {
+        "tslib": "2.3.0",
+        "zrender": "5.4.4"
+    }
+}

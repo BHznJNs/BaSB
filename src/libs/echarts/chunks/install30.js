@@ -1,0 +1,1 @@
+import{i}from"./installSimple.js";import{i as s}from"./install23.js";import{b9 as r}from"./index.js";import"./axisModelCreator.js";import"./axisDefault.js";import"./AxisView.js";import"./axisAlignTicks.js";import"./AxisBuilder.js";import"./labelLayoutHelper.js";import"./axisSplitHelper.js";function o(o){r(i),r(s)}export{o as install};

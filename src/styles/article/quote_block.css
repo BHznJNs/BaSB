@@ -1,0 +1,131 @@
+@media screen and (max-width: 767px) {
+    blockquote {
+        margin-left: 1rem !important;
+        margin-right: 0 !important;
+    }
+}
+blockquote {
+    --note-symbol: "📓";
+    --important-symbol: "❗";
+    --tip-symbol: "💡";
+    --warning-symbol: "⚠️";
+    --caution-symbol: "🚫";
+
+    position: relative;
+    padding: 0.1px 1rem;
+    margin-right: 1rem;
+    color: var(--quote-tx-color);
+    background-color: var(--quote-bg-color);
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    transition: color .3s .15s,
+                background .3s .15s;
+}
+
+blockquote code:not(pre code) {
+    filter: invert(15%);
+}
+
+blockquote::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    content: " ";
+    width: .125em;
+    max-width: 8px;
+    height: 100%;
+    background-color: var(--deep-bd-color);
+    cursor: pointer;
+    z-index: 1;
+    transition: width .3s,
+                transform .3s .05s;
+}
+
+blockquote:hover::before {
+    width: .375em;
+    transform: translateX(-3px);
+}
+
+/* --- --- --- --- --- --- */
+
+body.light blockquote {
+    --note-tx-color: #1976D2;
+    --note-bg-color: #E3F2FD;
+    --important-tx-color: #303F9F;
+    --important-bg-color: #E8EAF6;
+    --tip-tx-color: #689F38;
+    --tip-bg-color: #F1F8E9;
+    --warning-tx-color: #F57C00;
+    --warning-bg-color: #FFF8E1;
+    --caution-tx-color: #E53935;
+    --caution-bg-color: #FFEBEE;
+}
+
+body.dark blockquote {
+    --bg-color: var(--mixed-bg-color, var(--quote-bg-color)) !important;
+
+    --note-tx-color: #42A5F5;
+    --note-bg-color: #0D47A1;
+    --important-tx-color: #B39DDB;
+    --important-bg-color: #1A237E;
+    --tip-tx-color: #8BC34A;
+    --tip-bg-color: #33691E;
+    --warning-tx-color: #FFC107;
+    --warning-bg-color: #eb730a;
+    --caution-tx-color: #F44336;
+    --caution-bg-color: #B71C1C;
+}
+
+/* alert styles */
+
+body.light blockquote.alert {
+    --hovered-bg-color: hsla(0, 0%, 73%, 0.2);
+    --default-inline-code-bg-color: hsla(0, 0%, 73%, 0.4);
+}
+
+blockquote.note {
+    --alert-symbol: var(--note-symbol);
+    --tx-color: var(--note-tx-color);
+    --bg-color: var(--note-bg-color);
+    --mixed-bg-color: color-mix(in srgb, var(--note-bg-color), black);
+}
+blockquote.important {
+    --alert-symbol: var(--important-symbol);
+    --tx-color: var(--important-tx-color);
+    --bg-color: var(--important-bg-color);
+    --mixed-bg-color: color-mix(in srgb, var(--important-bg-color), black);
+}
+blockquote.tip {
+    --alert-symbol: var(--tip-symbol);
+    --tx-color: var(--tip-tx-color);
+    --bg-color: var(--tip-bg-color);
+    --mixed-bg-color: color-mix(in srgb, var(--tip-bg-color), black);
+}
+blockquote.warning {
+    --alert-symbol: var(--warning-symbol);
+    --tx-color: var(--warning-tx-color);
+    --bg-color: var(--warning-bg-color);
+    --mixed-bg-color: color-mix(in srgb, var(--warning-bg-color), black);
+}
+blockquote.caution {
+    --alert-symbol: var(--caution-symbol);
+    --tx-color: var(--caution-tx-color);
+    --bg-color: var(--caution-bg-color);
+    --mixed-bg-color: color-mix(in srgb, var(--caution-bg-color), black);
+}
+
+blockquote.alert {
+    background-color: var(--bg-color);
+}
+blockquote.alert::before {
+    background-color: var(--tx-color)
+}
+blockquote.alert p.alert-title {
+    color: var(--tx-color);
+    font-size: 1.125em;
+}
+blockquote.alert p.alert-title::before {
+    content: var(--alert-symbol);
+    margin-right: .2em;
+}
