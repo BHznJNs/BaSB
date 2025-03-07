@@ -7,10 +7,13 @@
   "bin": {
     "basb-cli": "./cli.js"
   },
+  "publishConfig": {
+    "@BHznJNs:registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "dev": "rollup --watch --config builder/rollup.config.js",
     "compress": "rollup --config builder/rollup.config.js",
-    "test": "mocha ./builder/test/*.test.js ./builder/test/*/*.test.js"
+    "test": "mocha ./builder/test/*.test.js ./builder/test/**/*.test.js"
   },
   "author": "BHznJNs",
   "license": "CC-BY-4.0",
