@@ -2,18 +2,20 @@
   "name": "basb-cli",
   "description": "Blog as Second Brain!",
   "version": "1.0.0",
+  "author": "BHznJNs",
   "repository": "https://github.com/BHznJNs/BaSB",
+  "license": "GPL-v3",
   "type": "module",
   "bin": {
     "basb-cli": "./cli.js"
   },
+  "keywords": ["static-blog-generator", "second-brain"],
   "scripts": {
     "dev": "rollup --watch --config builder/rollup.config.js",
     "compress": "rollup --config builder/rollup.config.js",
     "test": "mocha ./builder/test/*.test.js ./builder/test/**/*.test.js"
   },
-  "author": "BHznJNs",
-  "license": "CC-BY-4.0",
+
   "dependencies": {
     "chokidar": "^4.0.3",
     "commander": "^13.1.0",
