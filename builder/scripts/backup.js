@@ -24,7 +24,9 @@ function preprocessDirData(dir) {
     }
 }
 
-const staticDir = traversal(staticPath)
-const processed = preprocessDirData(staticDir)
-const backupData = JSON.stringify(processed)
-writeFileSync(backupFilePath, backupData)
+export default function() {
+    const staticDir = traversal(staticPath)
+    const processed = preprocessDirData(staticDir)
+    const backupData = JSON.stringify(processed)
+    writeFileSync(backupFilePath, backupData)
+}

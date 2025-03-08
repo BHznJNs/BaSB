@@ -9,6 +9,7 @@ import { traversal } from "../../utils/directory.js"
 import { staticPath, rssFilePath, ssrResourcePath, ssrCachePath, ssrListPath } from "../../utils/path.js"
 import { execute as executeImagesRendering } from "../../utils/renderer/index.js"
 import calculateMD5 from "../../utils/md5.js"
+import isEnabled from "../../utils/isEnabled.js"
 
 function isInIgnoredDir(path, ignoredDirs) {
     if (!ignoredDirs) {
@@ -38,8 +39,9 @@ async function readAllArticles(pathList) {
 }
 
 class SSRResourceCache {
+    /** @param {string} cachePath  */
     constructor(cachePath) {
-        this.cache = JSON.parse(fs.readFileSync(cachePath))
+        this.cache = JSON.parse(fs.readFileSync(cachePath, "utf-8"))
         this.filesToDelete = new Set(Object.keys(this.cache))
     }
     get(key) {
@@ -51,7 +53,9 @@ class SSRResourceCache {
     }
 }
 
-if (config.rss.enable) {
+export default async function() {
+    if (!isEnabled(config.rss)) return
+
     if (!fs.existsSync(ssrResourcePath)) {
         fs.mkdirSync(ssrResourcePath)
     }

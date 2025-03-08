@@ -1,10 +1,10 @@
 import mdResolver from "./index.js"
 import { render } from "../renderer/index.js"
-import el from "../../../src/utils/dom/el.js"
-import { countEntry } from "../../../src/utils/markdown/inline.js"
-import countWord from "../../../src/utils/countWord.js"
+import el from "../../../frontend/utils/dom/el.js"
+import { countEntry } from "../../../frontend/utils/markdown/inline.js"
+import countWord from "../../../common/countWord.js"
 import languageSelector from "../../utils/languageSelector.js"
-import getInterval from "../../../src/utils/markdown/utils/getInterval.js"
+import getInterval from "../../../frontend/utils/markdown/utils/getInterval.js"
 import {
     Headline,
     Para,
@@ -78,7 +78,7 @@ export {
     QABlock,
     Question,
     Answer,
-} from "../../../src/utils/markdown/node.js"
+} from "../../../frontend/utils/markdown/node.js"
 
 // --- --- --- --- -
 // media nodes start

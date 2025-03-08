@@ -1,0 +1,23 @@
+#latest-list {
+    display: flex;
+    flex-direction: column;
+    row-gap: .5rem;
+    margin-left: 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+#latest-list li {
+    padding: .75rem .25rem;
+    margin: 0;
+}
+
+#latest-list li a {
+    font-size: 1.125rem;
+}
+#latest-list li p {
+    margin: 0;
+    margin-top: .25rem;
+    margin-left: 1.5rem;
+    font-size: .875rem;
+}

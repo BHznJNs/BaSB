@@ -9,7 +9,7 @@ import cssnanoPlugin from "cssnano"
 
 function componentStyleResolver(componentName) {
     return postcss({
-        include: [`src/styles/components/${componentName}.css`],
+        include: [`frontend/styles/components/${componentName}.css`],
         extract: `chunks/${componentName}.min.css`,
         plugins: [
             cssImport(),
@@ -21,7 +21,7 @@ function componentStyleResolver(componentName) {
 
 function cssEntryFactory(filename) {
     return {
-        input: `src/styles/standalone-entry/${filename}.css`,
+        input: `frontend/styles/standalone-entry/${filename}.css`,
         output: {
             file: `dist/${filename}.min.css`,
         },
@@ -36,11 +36,11 @@ function cssEntryFactory(filename) {
 export default [
     {
         input: {
-            main: "src/index.js",
-            module: "src/scripts/importers/charts/echarts.js",
+            main: "frontend/index.js",
+            module: "frontend/scripts/importers/charts/echarts.js",
         },
         output: {
-            dir: "dist/",
+            dir: "template/dist/",
             format: "es",
             entryFileNames: (chunk) => {
                 const extname = path.extname(chunk.facadeModuleId)
@@ -71,81 +71,81 @@ export default [
                 targets: [
                     { /* images */
                         src: [
-                            "src/imgs/*.svg",
-                            "src/imgs/*.jpg",
-                            "src/imgs/*.jpeg",
-                            "src/imgs/*.png",
-                            "src/imgs/*.webp",
+                            "frontend/imgs/*.svg",
+                            "frontend/imgs/*.jpg",
+                            "frontend/imgs/*.jpeg",
+                            "frontend/imgs/*.png",
+                            "frontend/imgs/*.webp",
                         ],
-                        dest: "dist/imgs/"
+                        dest: "template/dist/imgs/"
                     },
                     { /* katex script */
                         src: [
-                            "src/libs/katex/*.min.*",
-                            "src/libs/katex/katex.map"
+                            "frontend/libs/katex/*.min.*",
+                            "frontend/libs/katex/katex.map"
                         ],
-                        dest: "dist/libs/katex/"
+                        dest: "template/dist/libs/katex/"
                     },
                     { /* katex fonts */
-                        src: "src/libs/katex/fonts/*",
-                        dest: "dist/libs/katex/fonts/",
+                        src: "frontend/libs/katex/fonts/*",
+                        dest: "template/dist/libs/katex/fonts/",
                     },
                     { /* highlight.js */
                         src: [
-                            "src/libs/highlight-es/highlight.min.js",
-                            "src/libs/highlight-es/highlight.map",
-                            "src/libs/highlight-es/github-dark.css"
+                            "frontend/libs/highlight-es/highlight.min.js",
+                            "frontend/libs/highlight-es/highlight.map",
+                            "frontend/libs/highlight-es/github-dark.css"
                         ],
-                        dest: "dist/libs/highlight-es/"
+                        dest: "template/dist/libs/highlight-es/"
                     },
                     { /* highlight.js languages */
                         src: [
-                            "src/libs/highlight-es/languages",
-                            "src/libs/highlight-es/libs"
+                            "frontend/libs/highlight-es/languages",
+                            "frontend/libs/highlight-es/libs"
                         ],
-                        dest: "dist/libs/highlight-es/"
+                        dest: "template/dist/libs/highlight-es/"
                     },
                     { /* echarts.js */
-                        src: "src/libs/echarts/core.js",
-                        dest: "dist/libs/echarts/"
+                        src: "frontend/libs/echarts/core.js",
+                        dest: "template/dist/libs/echarts/"
                     },
                     { /* echarts.js chunks */
-                        src: "src/libs/echarts/chunks/*",
-                        dest: "dist/libs/echarts/chunks"
+                        src: "frontend/libs/echarts/chunks/*",
+                        dest: "template/dist/libs/echarts/chunks"
                     },
                     { /* flowchart.js */
                         src: [
-                            "src/libs/flowchart.js/*.min.js",
-                            "src/libs/flowchart.js/*.map"
+                            "frontend/libs/flowchart.js/*.min.js",
+                            "frontend/libs/flowchart.js/*.map"
                         ],
-                        dest: "dist/libs/flowchart.js/"
+                        dest: "template/dist/libs/flowchart.js/"
                     },
                     { /* sequence-diagram */
-                        src: "src/libs/sequence-diagram/sequence-diagram-web.mjs",
-                        dest: "dist/libs/sequence-diagram/"
+                        src: "frontend/libs/sequence-diagram/sequence-diagram-web.mjs",
+                        dest: "template/dist/libs/sequence-diagram/"
                     },
                     { /* frappe-gantt */
-                        src: "src/libs/frappe-gantt/*.min.*",
-                        dest: "dist/libs/frappe-gantt/"
+                        src: "frontend/libs/frappe-gantt/*.min.*",
+                        dest: "template/dist/libs/frappe-gantt/"
                     },
                     { /* railroad-diagrams */
                         src: [
-                            "src/libs/railroad-diagrams/railroad.min.js",
-                            "src/libs/railroad-diagrams/railroad.css",
+                            "frontend/libs/railroad-diagrams/railroad.min.js",
+                            "frontend/libs/railroad-diagrams/railroad.css",
                         ],
-                        dest: "dist/libs/railroad-diagrams/"
+                        dest: "template/dist/libs/railroad-diagrams/"
                     },
                     { /* qrcode-svg */
-                        src: "src/libs/qrcode-svg/qrcode.min.js",
-                        dest: "dist/libs/qrcode-svg/"
+                        src: "frontend/libs/qrcode-svg/qrcode.min.js",
+                        dest: "template/dist/libs/qrcode-svg/"
                     },
                     { /* flexsearch */
-                        src: "src/libs/flexsearch/flexsearch.bundle.module.min.js",
-                        dest: "dist/libs/flexsearch/"
+                        src: "frontend/libs/flexsearch/flexsearch.bundle.module.min.js",
+                        dest: "template/dist/libs/flexsearch/"
                     },
                     { /* resolve-pathname */
-                        src: "src/libs/resolve-pathname/index.js",
-                        dest: "dist/libs/resolve-pathname/"
+                        src: "frontend/libs/resolve-pathname/index.js",
+                        dest: "template/dist/libs/resolve-pathname/"
                     },
                 ],
             }),
@@ -155,10 +155,10 @@ export default [
             componentStyleResolver("skeleton"),
             postcss({
                 include: [
-                    "src/styles/*.css",
-                    "src/libs/highlight-es/*.css",
-                    "src/styles/components/paging.css",
-                    "!src/styles/standalone-entry/**",
+                    "frontend/styles/*.css",
+                    "frontend/libs/highlight-es/*.css",
+                    "frontend/styles/components/paging.css",
+                    "!frontend/styles/standalone-entry/**",
                 ],
                 extract: "style.min.css",
                 plugins: [
@@ -171,9 +171,9 @@ export default [
         ]
     },
     {
-        input: "src/sw.js",
+        input: "frontend/sw.js",
         output: {
-            file: "sw.js",
+            file: "template/sw.js",
             format: "es",
             sourcemap: "hidden",
             sourcemapFileNames: "dist/sw.js.map",

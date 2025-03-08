@@ -5,14 +5,13 @@ import saveSearchIndex from "./resolveSearch.js"
 import { config } from "../../utils/loadConfig.js"
 import { traversal } from "../../utils/directory.js"
 import { staticPath } from "../../utils/path.js"
+import isEnabled from "../../utils/isEnabled.js"
 
-const staticDir = traversal(staticPath)
-await saveIndex(staticDir)
+export default async function() {
+    const staticDir = traversal(staticPath)
+    await saveIndex(staticDir)
 
-const newests = getNewest(staticDir)
-if (config.newest.enable) {
-    await saveNewest(newests.children)
-}
-if (config.search.enable) {
-    await saveSearchIndex(newests.children)
+    const newests = getNewest(staticDir)
+    if (isEnabled(config.newest)) await saveNewest(newests.children)
+    if (isEnabled(config.search)) await saveSearchIndex(newests.children)
 }

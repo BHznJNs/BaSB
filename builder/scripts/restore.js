@@ -27,5 +27,8 @@ function restoreDir(dir) {
         }
     }
 }
-const backupData = JSON.parse(readFileSync(backupFilePath, "utf-8"))
-restoreDir(backupData)
+
+export default function() {
+    const backupData = JSON.parse(readFileSync(backupFilePath, "utf-8"))
+    restoreDir(backupData)
+}

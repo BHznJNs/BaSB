@@ -1,6 +1,6 @@
 import os from "node:os"
 import http from "node:http"
-import { WebSocketServer } from "ws"
+import { WebSocketServer, WebSocket } from "ws"
 import express from "express"
 import startWatch from "./watch.js"
 import { config } from "../utils/loadConfig.js"
@@ -56,15 +56,17 @@ if (liveReload) {
 }
 // --- LiveReload WebSocket server end ---
 
-startWatch(() => {
-    wsSet.forEach(ws => ws.send("refresh"))
-})
-
-const LAN_IP = getLANIpAddress()
-server.listen(port, "0.0.0.0", () => {
-    // listen in both LAN and localhost
-    if (LAN_IP) {
-        console.log(`Listening: http://${LAN_IP}:${port}/preview/`)
-    }
-    console.log(`Listening: http://localhost:${port}/preview/`)
-})
+export default function() {
+    startWatch(() => {
+        wsSet.forEach(ws => ws.send("refresh"))
+    })
+    
+    const LAN_IP = getLANIpAddress()
+    server.listen(port, "0.0.0.0", () => {
+        // listen in both LAN and localhost
+        if (LAN_IP) {
+            console.log(`Listening: http://${LAN_IP}:${port}/preview/`)
+        }
+        console.log(`Listening: http://localhost:${port}/preview/`)
+    })    
+}

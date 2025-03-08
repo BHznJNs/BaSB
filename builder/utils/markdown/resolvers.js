@@ -5,11 +5,11 @@ import {
     IframeBlock, Iframe,
  } from "./node.js"
 import mdResolver from "./index.js"
-import { blockResolverGenerator } from "../../../src/utils/markdown/resolvers/index.js"
+import { blockResolverGenerator } from "../../../frontend/utils/markdown/resolvers/index.js"
 export {
     listResolver, tableResolver,
-} from "../../../src/utils/markdown/resolvers/index.js"
-export { default as QAResolver } from "../../../src/utils/markdown/resolvers/QAResolver.js"
+} from "../../../frontend/utils/markdown/resolvers/index.js"
+export { default as QAResolver } from "../../../frontend/utils/markdown/resolvers/QAResolver.js"
 
 export const chartResolver   = blockResolverGenerator("!!!", ChartBlock)
 export const formulaResolver = blockResolverGenerator("$$$", FormulaBlock)

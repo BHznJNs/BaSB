@@ -1,8 +1,9 @@
 import path from "node:path"
+import isEnabled from "../utils/isEnabled.js"
 import { config } from "../utils/loadConfig.js"
-import renderer from "../../src/utils/markdown/index.js"
 import languageSelector from "../utils/languageSelector.js"
-import el from "../../src/utils/dom/el.js"
+import el from "../../frontend/utils/dom/el.js"
+import renderer from "../../frontend/utils/markdown/index.js"
 
 export const htmlLang = languageSelector("zh-CN", "en")
 
@@ -43,8 +44,8 @@ if (darkModeMediaQuery) {
 
 export function navigator(
     base="./",
-    enableSearch=config.search.enable,
-    enableRSS=config.rss.enable,
+    enableSearch=isEnabled(config.search),
+    enableRSS=isEnabled(config.rss),
 ) {
     const homepageBtn = `\
 <a
@@ -119,7 +120,7 @@ export function loadExtraScripts(base="./") {
     return `\
 <script>window.addEventListener("load", () => {
     const scripts = ${JSON.stringify(
-        config.extraScripts.map(item => {
+        (config.extraScripts ?? []).map(item => {
             try {
                 new URL(item)
                 return item

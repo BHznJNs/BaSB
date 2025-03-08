@@ -6,20 +6,28 @@
   "repository": "https://github.com/BHznJNs/BaSB",
   "license": "GPL-v3",
   "type": "module",
+  "main": "./builder/exports.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": "./builder/exports.js",
+    "./types": "./types/index.d.ts"
+  },
   "bin": {
     "basb-cli": "./cli.js"
   },
-  "keywords": ["static-blog-generator", "second-brain"],
+  "keywords": [
+    "static-blog-generator",
+    "second-brain"
+  ],
   "scripts": {
     "dev": "rollup --watch --config builder/rollup.config.js",
-    "compress": "rollup --config builder/rollup.config.js",
+    "build": "rollup --config builder/rollup.config.js",
     "test": "mocha ./builder/test/*.test.js ./builder/test/**/*.test.js"
   },
-
   "dependencies": {
     "chokidar": "^4.0.3",
     "commander": "^13.1.0",
-    "electron": "^28.2.0",
+    "electron": "^35.0.0",
     "express": "^4.21.2",
     "html2canvas": "^1.4.1",
     "utimes": "^5.2.1",
@@ -30,7 +38,7 @@
     "@rollup/plugin-terser": "^0.4.4",
     "autoprefixer": "^10.4.16",
     "cssnano": "^6.0.2",
-    "mocha": "^10.2.0",
+    "mocha": "^11.1.0",
     "postcss": "^8.4.32",
     "postcss-import": "^15.1.0",
     "rollup": "^4.9.1",

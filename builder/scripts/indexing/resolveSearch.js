@@ -3,9 +3,9 @@ import { config } from "../../utils/loadConfig.js"
 import mdResolver from "../../utils/markdown/index.js"
 import { indexFilePath } from "../../utils/path.js"
 import { DetailsBlock, Headline, List, Para, Quote } from "../../utils/markdown/node.js"
-import flexsearch from "../../../src/libs/flexsearch/flexsearch.bundle.module.min.js"
-import countWord, { tokenize } from "../../../src/utils/countWord.js"
-import { getRawContent } from "../../../src/utils/markdown/inline.js"
+import flexsearch from "../../../frontend/libs/flexsearch/flexsearch.bundle.module.min.js"
+import { getRawContent } from "../../../frontend/utils/markdown/inline.js"
+import countWord, { tokenize } from "../../../common/countWord.js"
 
 const indexFactory = () => new flexsearch.Index({
         preset: "default",

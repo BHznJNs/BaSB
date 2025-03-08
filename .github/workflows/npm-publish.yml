@@ -10,11 +10,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "20"
-      - name: Install pnpm
-        run: npm install -g pnpm
-      - run: pnpm install --frozen-lockfile
-  
-      - run: pnpm test
+
+      - run: npm i
+      - run: npm test
+
       - uses: JS-DevTools/npm-publish@v3
         with:
           access: public

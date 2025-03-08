@@ -20,8 +20,7 @@ function isInIgnoredDir(path, ignoredDirs) {
 export default async function(newestList) {
     const { ignoredDir } = config.newest
     const filtered = newestList.filter(item =>
-        !isInIgnoredDir(item.path, ignoredDir)
-    )
+        !isInIgnoredDir(item.path, ignoredDir))
     const sliced = slice(filtered, config.newest.pageSize || config.pageSize)
     const count  = sliced.length
 

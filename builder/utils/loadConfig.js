@@ -2,14 +2,14 @@ import fs from "node:fs"
 import path from "node:path"
 
 const userConfigPath = path.join(process.cwd(), "user/build.config.js")
+const isValidDirectory = fs.existsSync(userConfigPath)
 
-if (!fs.existsSync(userConfigPath)) {
-    console.log("Not a valid BaSB directory.")
-    process.exit(1)
-}
-
-/** @type {import("../../user/build.config").SiteConfig} */
-const config = (await import("file:\\\\" + userConfigPath)).default
+/** @type {import("../../types/index").SiteConfig} */
+const config = (await import(
+    isValidDirectory
+        ? "file:\\\\" + userConfigPath
+        : "../../common/default.config.js"
+)).default
 
 try {
     new URL(config.homepage)
@@ -18,4 +18,4 @@ try {
     process.exit(1)
 }
 
-export { config }
+export { isValidDirectory, config }

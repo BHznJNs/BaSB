@@ -8,7 +8,7 @@ import { config } from "../utils/loadConfig.js"
 import { staticPath } from "../utils/path.js"
 import { readmeFilename } from "../utils/filename.js"
 import { traversal } from "../utils/directory.js"
-import debounce from "../../src/utils/debounce.js"
+import debounce from "../../common/debounce.js"
 
 async function update() {
     const staticDir = traversal(staticPath)

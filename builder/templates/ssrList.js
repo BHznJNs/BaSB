@@ -4,45 +4,9 @@ import {
 } from "./snippets.js"
 import { config } from "../utils/loadConfig.js"
 import { File } from "../utils/directory.js"
-import el from "../../src/utils/dom/el.js"
-import dateFormatter from "../../src/utils/dateFormatter.js"
 import languageSelector from "../utils/languageSelector.js"
-
-function timeAgo(timestamp) {
-    const cnIntervalUnits = {
-        year: "年",
-        month: "月",
-        week: "周",
-        day: "天",
-        hour: "小时",
-        minute: "分钟",
-    }
-    const intervals = {
-        year: 31536000,
-        month: 2628000,
-        week: 604800,
-        day: 86400,
-        hour: 3600,
-        minute: 60,
-    }
-    const difference = Math.floor((Date.now() - timestamp) / 1000)
-
-    for (let unit in intervals) {
-        const interval = intervals[unit]
-        if (difference >= interval) {
-            const count = Math.floor(difference / interval)
-            const resultText = [
-                languageSelector("约", "About"),
-                count,
-                (count === 1)
-                    ? languageSelector(cnIntervalUnits[unit] + "前", unit + " ago")
-                    : languageSelector(cnIntervalUnits[unit] + "前", unit + "s ago"),
-            ].join(" ")
-            return resultText
-        }
-    }
-    return languageSelector("刚刚", "Just now")
-}
+import el from "../../frontend/utils/dom/el.js"
+import dateFormatter from "../../frontend/utils/dateFormatter.js"
 
 function template(links) {
     return `\
@@ -50,7 +14,7 @@ function template(links) {
 <html lang="${htmlLang}">
 <head>
 ${header(config.title ?? "MarkdownBlog", config.description, "../")}
-${config.extraMetadata
+${(config.extraMetadata ?? [])
     .map(item => el("meta", item))
     .join("")
 }

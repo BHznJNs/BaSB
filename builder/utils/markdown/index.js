@@ -15,7 +15,7 @@ import {
     chartResolver, formulaResolver,
     codeResolver, iframeResolver, detailsResolver,
 } from "./resolvers.js"
-import getLines from "../../../src/utils/markdown/utils/getLines.js"
+import getLines from "../../../frontend/utils/markdown/utils/getLines.js"
 
 export default function mdResolver(source) {
     const lines = getLines(source)

@@ -7,7 +7,8 @@ import {
 import { config } from "../utils/loadConfig.js"
 import { ssrListPath } from "../utils/path.js"
 import languageSelector from "../utils/languageSelector.js"
-import el from "../../src/utils/dom/el.js"
+import el from "../../frontend/utils/dom/el.js"
+import isEnabled from "../utils/isEnabled.js"
 
 const noscript = `\
 <noscript>
@@ -24,7 +25,7 @@ const main = `\
 <main id="script-main" data-is-root=true>
     <header id="directory-description"></header>
     <ul id="function-list">
-${config.newest.enable ? `\
+${isEnabled(config.newest) ? `\
         <li
             id="newest"
             tabindex="0"
@@ -56,7 +57,7 @@ ${config.newest.enable ? `\
 
 const article = `\
 <div id="article-container">
-${config.catalog.enable
+${isEnabled(config.catalog)
     ? "<article-catalog></article-catalog>"
     : ""
 }
@@ -68,7 +69,7 @@ const template = `\
 <html lang="${htmlLang}">
 <head>
 ${header(config.title ?? "MarkdownBlog", config.description)}
-${config.extraMetadata
+${(config.extraMetadata ?? [])
     .map(item => el("meta", item))
     .join("")
 }
@@ -78,8 +79,8 @@ ${config.extraMetadata
 </head>
 <body>
 ${inlineDarkmodeSwitcherScript()}
-${config.search.enable ? el("search-box"): ""}
-${config.fab.enable    ? el("fab-icon")  : ""}
+${isEnabled(config.search) ? el("search-box"): ""}
+${isEnabled(config.fab)    ? el("fab-icon")  : ""}
 ${navigator()}
 ${noscript}
 ${main}

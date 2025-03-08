@@ -49,8 +49,9 @@ for (const file of newests.children) {
     totalWordCount += count
 }
 
-// start writing date
-const firstArticle = newests.children[newests.length - 1]
-const startTime = firstArticle.createTime
-const pageContent = countTemplate(startTime, metadataList, totalWordCount)
-fs.writeFileSync(countPagePath, pageContent)
+export default function() {
+    const firstArticle = newests.children[newests.length - 1]
+    const startTime = firstArticle.createTime
+    const pageContent = countTemplate(startTime, metadataList, totalWordCount)
+    fs.writeFileSync(countPagePath, pageContent)
+}
