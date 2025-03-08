@@ -1,5 +1,5 @@
 import assert from "node:assert/strict"
-import mergeObj from "../../../frontend/utils/mergeObj.js"
+import mergeObj from "../../../common/mergeObj.js"
 import { checkType } from "../util.js"
 
 describe("mergeObj", () => {

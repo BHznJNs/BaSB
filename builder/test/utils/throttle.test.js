@@ -1,5 +1,5 @@
 import assert from "node:assert/strict"
-import throttle from "../../../frontend/utils/throttle.js"
+import throttle from "../../../common/throttle.js"
 import { checkType } from "../util.js"
 
 function doSomething() {

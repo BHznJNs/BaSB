@@ -1,6 +1,6 @@
 import assert from "node:assert/strict"
 import { checkType } from "../util.js"
-import countWord from "../../../frontend/utils/countWord.js"
+import countWord from "../../../common/countWord.js"
 
 describe("Paragraph word counter", () => {
     it("should be a function", () => {

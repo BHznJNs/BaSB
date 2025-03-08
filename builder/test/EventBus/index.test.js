@@ -1,5 +1,5 @@
 import assert from "node:assert/strict"
-import EventBus from "../../../frontend/utils/eventbus/index.js"
+import EventBus from "../../../common/eventbus/index.js"
 import { hasProperty, checkType } from "../util.js"
 
 const testInstance = new EventBus()
