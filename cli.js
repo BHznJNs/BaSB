@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { Command } from "commander"
+import { packageMetadata } from "./builder/utils/loadPackageMetadata.js"
 import languageSelector from "./builder/utils/languageSelector.js"
 
 function commandScriptRunner(...scripts) {
@@ -19,7 +20,11 @@ const scripts = {
     restore: "./builder/scripts/restore.js",
 }
 
+// --- --- --- --- --- ---
+
 program.name("BaSB-cli")
+    .version(packageMetadata.version)
+    .description(packageMetadata.description)
 
 program.command("preview")
     .description(languageSelector("启动预览服务器", "Launch preview server"))

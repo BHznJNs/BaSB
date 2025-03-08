@@ -1,5 +1,6 @@
 {
-  "name": "BaSB-cli",
+  "name": "basb-cli",
+  "description": "Blog as Second Brain!",
   "version": "1.0.0",
   "repository": "https://github.com/BHznJNs/BaSB",
   "type": "module",
