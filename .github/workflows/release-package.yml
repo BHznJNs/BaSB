@@ -1,40 +1,21 @@
-name: NPM Package Release
-
 on:
-  release:
-    types: [created]
+  push:
+    branches: master
 
 jobs:
-  run-test:
+  publish:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "20"
       - name: Install pnpm
         run: npm install -g pnpm
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
       - run: pnpm install --frozen-lockfile
+  
       - run: pnpm test
-
-  publish-gpr:
-    needs: run-test
-    runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
-    steps:
-      - uses: actions/checkout@v4
+      - uses: JS-DevTools/npm-publish@v3
         with:
-          ref: v2
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          registry-url: https://npm.pkg.github.com/
-      - name: Install pnpm
-        run: npm install -g pnpm
-
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          access: public
+          token: ${{ secrets.NPM_AUTH_TOKEN }}
