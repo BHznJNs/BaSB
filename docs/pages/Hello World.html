@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="color-scheme" content="light dark">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hello World</title>
+<link rel="shortcut icon" href="../dist/imgs/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="../dist/style.min.css">
+</head>
+<body>
+<script>
+const darkModeMediaQuery = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)")
+const darkModeSwitcher = () => {
+    const isDarkMode = darkModeMediaQuery.matches
+    document.body.classList.toggle("dark" ,  isDarkMode)
+    document.body.classList.toggle("light", !isDarkMode)
+}
+if (darkModeMediaQuery) {
+    darkModeMediaQuery.addListener(darkModeSwitcher)
+    darkModeSwitcher()
+}
+</script>
+<nav>
+    <a
+    id="homepage"
+    class="icon-btn underline-side left"
+    href="../"
+    onclick="globalThis.__CurrentPage__=1"
+>
+    <img src="../dist/imgs/homepage.svg" alt="home">
+    <span class="underline-target">Home</span>
+</a>
+    <span><a
+    id="rss-icon"
+    class="icon-btn"
+    href="../user/rss.xml"
+    title="RSS Subscribe"
+>
+    <img
+        src="../dist/imgs/rss.svg"
+        alt="RSS Subscribe"
+    >
+</a><span>
+    <span
+        id="light-btn"
+        class="icon-btn"
+        role="button"
+        tabindex="0"
+        title="Light Mode"
+        onclick="document.body.classList.remove('dark'); document.body.classList.add('light')"
+    >
+        <img
+            src="../dist/imgs/sun.svg"
+            alt="Light Mode Icon"
+        >
+    </span>
+    <span
+        id="dark-btn"
+        class="icon-btn"
+        role="button"
+        tabindex="0"
+        title="Dark Mode"
+        onclick="document.body.classList.add('dark'); document.body.classList.remove('light')"
+    >
+        <img
+            src="../dist/imgs/moon.svg"
+            alt="Dark Mode Icon"
+        >
+    </span>
+</span></span>
+</nav>
+<article>
+<p>Hello World!</p>
+<p><a href="https://www.example.com/#static/Hello World.md">
+    Click here to read original article
+</a></p>
+</article>
+
+<script>window.addEventListener("load", () => {
+    const scripts = []
+    for (const script of scripts) {
+        const scriptEl = document.createElement("script")
+        scriptEl.src = script
+        scriptEl.async = true
+        document.head.appendChild(scriptEl)
+    }
+})</script>
+</body>
+</html>

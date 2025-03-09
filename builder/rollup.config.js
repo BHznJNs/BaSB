@@ -1,3 +1,4 @@
+// @ts-nocheck
 import path from "node:path"
 import terser from "@rollup/plugin-terser"
 import dynamicImportVariables from "@rollup/plugin-dynamic-import-vars"
@@ -23,7 +24,7 @@ function cssEntryFactory(filename) {
     return {
         input: `frontend/styles/standalone-entry/${filename}.css`,
         output: {
-            file: `dist/${filename}.min.css`,
+            file: `template/dist/${filename}.min.css`,
         },
         plugins: [
             postcss({
@@ -69,6 +70,11 @@ export default [
             copy({
                 copyOnce: true,
                 targets: [
+                    { /* favicon */
+                        src: "common/favicon/favicon_128x128.png",
+                        dest: "template/dist/imgs/",
+                        rename: "favicon.png",
+                    },
                     { /* images */
                         src: [
                             "frontend/imgs/*.svg",
@@ -77,14 +83,14 @@ export default [
                             "frontend/imgs/*.png",
                             "frontend/imgs/*.webp",
                         ],
-                        dest: "template/dist/imgs/"
+                        dest: "template/dist/imgs/",
                     },
                     { /* katex script */
                         src: [
                             "frontend/libs/katex/*.min.*",
-                            "frontend/libs/katex/katex.map"
+                            "frontend/libs/katex/katex.map",
                         ],
-                        dest: "template/dist/libs/katex/"
+                        dest: "template/dist/libs/katex/",
                     },
                     { /* katex fonts */
                         src: "frontend/libs/katex/fonts/*",
@@ -94,54 +100,54 @@ export default [
                         src: [
                             "frontend/libs/highlight-es/highlight.min.js",
                             "frontend/libs/highlight-es/highlight.map",
-                            "frontend/libs/highlight-es/github-dark.css"
+                            "frontend/libs/highlight-es/github-dark.css",
                         ],
-                        dest: "template/dist/libs/highlight-es/"
+                        dest: "template/dist/libs/highlight-es/",
                     },
                     { /* highlight.js languages */
                         src: [
                             "frontend/libs/highlight-es/languages",
-                            "frontend/libs/highlight-es/libs"
+                            "frontend/libs/highlight-es/libs",
                         ],
-                        dest: "template/dist/libs/highlight-es/"
+                        dest: "template/dist/libs/highlight-es/",
                     },
                     { /* echarts.js */
                         src: "frontend/libs/echarts/core.js",
-                        dest: "template/dist/libs/echarts/"
+                        dest: "template/dist/libs/echarts/",
                     },
                     { /* echarts.js chunks */
                         src: "frontend/libs/echarts/chunks/*",
-                        dest: "template/dist/libs/echarts/chunks"
+                        dest: "template/dist/libs/echarts/chunks",
                     },
                     { /* flowchart.js */
                         src: [
                             "frontend/libs/flowchart.js/*.min.js",
-                            "frontend/libs/flowchart.js/*.map"
+                            "frontend/libs/flowchart.js/*.map",
                         ],
-                        dest: "template/dist/libs/flowchart.js/"
+                        dest: "template/dist/libs/flowchart.js/",
                     },
                     { /* sequence-diagram */
                         src: "frontend/libs/sequence-diagram/sequence-diagram-web.mjs",
-                        dest: "template/dist/libs/sequence-diagram/"
+                        dest: "template/dist/libs/sequence-diagram/",
                     },
                     { /* frappe-gantt */
                         src: "frontend/libs/frappe-gantt/*.min.*",
-                        dest: "template/dist/libs/frappe-gantt/"
+                        dest: "template/dist/libs/frappe-gantt/",
                     },
                     { /* railroad-diagrams */
                         src: [
                             "frontend/libs/railroad-diagrams/railroad.min.js",
                             "frontend/libs/railroad-diagrams/railroad.css",
                         ],
-                        dest: "template/dist/libs/railroad-diagrams/"
+                        dest: "template/dist/libs/railroad-diagrams/",
                     },
                     { /* qrcode-svg */
                         src: "frontend/libs/qrcode-svg/qrcode.min.js",
-                        dest: "template/dist/libs/qrcode-svg/"
+                        dest: "template/dist/libs/qrcode-svg/",
                     },
                     { /* flexsearch */
                         src: "frontend/libs/flexsearch/flexsearch.bundle.module.min.js",
-                        dest: "template/dist/libs/flexsearch/"
+                        dest: "template/dist/libs/flexsearch/",
                     },
                     { /* resolve-pathname */
                         src: "frontend/libs/resolve-pathname/index.js",

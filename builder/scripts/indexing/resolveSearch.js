@@ -2,6 +2,7 @@ import fs from "node:fs"
 import { config } from "../../utils/loadConfig.js"
 import mdResolver from "../../utils/markdown/index.js"
 import { indexFilePath } from "../../utils/path.js"
+import { File } from "../../utils/directory.js"
 import { DetailsBlock, Headline, List, Para, Quote } from "../../utils/markdown/node.js"
 import flexsearch from "../../../frontend/libs/flexsearch/flexsearch.bundle.module.min.js"
 import { getRawContent } from "../../../frontend/utils/markdown/inline.js"
@@ -53,7 +54,8 @@ function nodeResolver(node) {
 
 function getSearchIndexData(newestList) {
     const dataList = []
-    const wordCountThreshold = config.search.pageThreshold
+    // `30000` is the default threshold
+    const wordCountThreshold = (config.search && config.search.pageThreshold) ?? 30000
 
     let currentId    = 0
     let currentCount = 0
@@ -93,7 +95,11 @@ function getSearchIndexData(newestList) {
     return dataList
 }
 
+/**
+ * @param {File[]} newestList
+ */
 export default async function(newestList) {
+    /** @type {(index: number) => string} */
     const searchIndexPath = index => indexFilePath + `search-index_${index}.json`
     const dataList = getSearchIndexData(newestList)
 

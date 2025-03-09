@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="color-scheme" content="light dark">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Blog as Second Brain">
+<title>Blog as Second Brain</title>
+<link rel="shortcut icon" href="./dist/imgs/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="./dist/style.min.css">
+
+<script src="./dist/index.min.js" type="module" defer></script>
+<link rel="preload" href=".index/static_1" as="fetch">
+<link rel="preload" href=".index/newest_1" as="fetch">
+</head>
+<body>
+<script>
+const darkModeMediaQuery = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)")
+const darkModeSwitcher = () => {
+    const isDarkMode = darkModeMediaQuery.matches
+    document.body.classList.toggle("dark" ,  isDarkMode)
+    document.body.classList.toggle("light", !isDarkMode)
+}
+if (darkModeMediaQuery) {
+    darkModeMediaQuery.addListener(darkModeSwitcher)
+    darkModeSwitcher()
+}
+</script>
+<search-box></search-box>
+<fab-icon></fab-icon>
+<nav>
+    <a
+    id="homepage"
+    class="icon-btn underline-side left"
+    href="./"
+    onclick="globalThis.__CurrentPage__=1"
+>
+    <img src="./dist/imgs/homepage.svg" alt="home">
+    <span class="underline-target">Home</span>
+</a>
+    <span><button
+    id="search-btn"
+    class="icon-btn"
+    title="Search"
+>
+    <img
+        src="./dist/imgs/search.svg"
+        alt="Search"
+    >
+</button><a
+    id="rss-icon"
+    class="icon-btn"
+    href="./user/rss.xml"
+    title="RSS Subscribe"
+>
+    <img
+        src="./dist/imgs/rss.svg"
+        alt="RSS Subscribe"
+    >
+</a><span>
+    <span
+        id="light-btn"
+        class="icon-btn"
+        role="button"
+        tabindex="0"
+        title="Light Mode"
+        onclick="document.body.classList.remove('dark'); document.body.classList.add('light')"
+    >
+        <img
+            src="./dist/imgs/sun.svg"
+            alt="Light Mode Icon"
+        >
+    </span>
+    <span
+        id="dark-btn"
+        class="icon-btn"
+        role="button"
+        tabindex="0"
+        title="Dark Mode"
+        onclick="document.body.classList.add('dark'); document.body.classList.remove('light')"
+    >
+        <img
+            src="./dist/imgs/moon.svg"
+            alt="Dark Mode Icon"
+        >
+    </span>
+</span></span>
+</nav>
+<noscript>
+<link rel="stylesheet" href="./dist/noscript.min.css">
+<main id="noscript-main">
+    <p>Your browser seems to have JavaScript disabled. You can click here to <a href="pages/index.html">view the latest articles</a>.</p>
+</main>
+</noscript>
+<main id="script-main" data-is-root=true>
+    <header id="directory-description"></header>
+    <ul id="function-list">
+        <li
+            id="newest"
+            tabindex="0"
+            onclick="location.hash = 'newest/'"
+        >Newests</li>
+        <li
+            id="previous-dir"
+            tabindex="0"
+        >../</li>
+        <li id="update-time" tabindex="0">
+            Last updated: <code></code>
+        </li>
+    </ul>
+    <table id="newest-header">
+        <thead><tr>
+            <th>Name</th>
+            <th>Publish Date</th>
+        </tr></thead>
+    </table>
+    <table id="directory-header">
+        <thead><tr>
+            <th>Name</th>
+            <th>Last Modified</th>
+        </tr></thead>
+    </table>
+    <ul id="article-list"></ul>
+    <paging-view></paging-view>
+</main>
+<div id="article-container">
+<article-catalog></article-catalog>
+<article></article>
+</div>
+
+<script>window.addEventListener("load", () => {
+    const scripts = []
+    for (const script of scripts) {
+        const scriptEl = document.createElement("script")
+        scriptEl.src = script
+        scriptEl.async = true
+        document.head.appendChild(scriptEl)
+    }
+})</script>
+</body>
+</html>

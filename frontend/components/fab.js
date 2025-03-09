@@ -27,9 +27,9 @@ class FabIcon extends HTMLElement {
         super()
 
         // hide self before style loaded
-        this.style.opacity = 0
+        this.style.opacity = String(0)
         importStyle("./dist/chunks/fab.min.css")
-            .then(() => this.style.opacity = 1)
+            .then(() => this.style.opacity = String(1))
 
         // --- --- --- --- --- ---
 

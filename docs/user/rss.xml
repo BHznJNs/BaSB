@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+<title>Blog as Second Brain</title>
+<link>https://www.example.com/</link>
+<description>Blog as Second Brain</description><item>
+<title>Hello World</title>
+<link>https://www.example.com/pages/Hello%20World.html</link>
+<pubDate>Sun, 9 Mar 2025 10:51:00 +0800</pubDate>
+<lastBuildDate>Sat, 8 Mar 2025 22:29:00 +0800</lastBuildDate>
+</item></channel></rss>
