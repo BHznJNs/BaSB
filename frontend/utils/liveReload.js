@@ -13,9 +13,7 @@ export class LiveReloadWSClient {
     retryInterval = LiveReloadWSClient.defaultRetryInterval
 
     connect() {
-        if (!LiveReloadWSClient.isAbleToConnect) {
-            return
-        }
+        if (!LiveReloadWSClient.isAbleToConnect) return
         const socket = this.ws = new WebSocket(this.wsServerURL)
         socket.addEventListener("open", () => {
             this.retryCount  = 0

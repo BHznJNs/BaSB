@@ -1,6 +1,6 @@
 import fs from "node:fs"
 import path from "node:path"
-import { orderbyCreateTime, orderbyFilename, orderbyModifyTime, reverseFilename } from "./filename.js"
+import { orderByCreateTime, orderByFilename, orderByModifyTime, reverseFilename } from "./filename.js"
 import { ssrResourcePath } from "./path.js"
 
 const ORDERBY_CREATE_TIME = 0
@@ -41,11 +41,13 @@ export function traversal(dirPath) {
             currentDir.updateTime = Math.max(currentDir.updateTime, subDir.updateTime)
             currentDir.items.push(subDir)
         } else {
-            if (orderbyCreateTime.includes(item)) {
+            if (itemPath.endsWith(".draft.md")) continue
+
+            if (orderByCreateTime.includes(item)) {
                 currentDir.orderby = ORDERBY_CREATE_TIME; continue
-            } else if (orderbyModifyTime.includes(item)) {
+            } else if (orderByModifyTime.includes(item)) {
                 currentDir.orderby = ORDERBY_MODIFY_TIME; continue
-            } else if (orderbyFilename.includes(item)) {
+            } else if (orderByFilename.includes(item)) {
                 currentDir.orderby = ORDERBY_FILENAME; continue
             }
             if (reverseFilename.includes(item)) {
@@ -64,13 +66,19 @@ export function traversal(dirPath) {
 export class Directory {
     name  = ""
     path  = ""
-    items = [] // [`Directory` | `File`]
+    /** @type {(Directory | File)[]} */
+    items = []
     createTime = 0
     modifyTime = 0
     updateTime = 0
     isReversed = false
     orderby = ORDERBY_CREATE_TIME
 
+    /**
+     * @param {string} name
+     * @param {string} path
+     * @param {number} createTime
+     */
     constructor(name, path, createTime) {
         this.name = name
         this.path = path
@@ -101,6 +109,13 @@ export class Directory {
             } else {/* unreachable */}
             return this.isReversed ? -cmpResult : cmpResult
         })
+    }
+
+    has(name) {
+        for (const item of this.items) {
+            if (item.name == name) return true;
+        }
+        return false;
     }
 
     static clear(path) {

@@ -3,24 +3,24 @@ import "./styles/components/skeleton.css"
 
 import "./scripts/mainManager.js"
 import pageController from "./components/paging.js"
-import pathManager from "./scripts/pathManager"
+import pathManager, { hashChangeEvent } from "./scripts/pathManager.js"
 import { setIframeTheme } from "./scripts/iframeController.js"
 import importStyle from "./scripts/importers/style.js"
 import { config } from "./utils/loadConfig.js"
 import keydownEvent from "./utils/dom/keydownEvent.js"
 import { LiveReloadWSClient } from "./utils/liveReload.js"
 import eventbus from "../common/eventbus/inst.js"
+import isEnabled from "../common/isEnabled.js"
 
 importStyle("dist/chunks/skeleton.min.css")
 
+document.addEventListener("DOMContentLoaded", hashChangeEvent)
+if (document.readyState !== "loading") hashChangeEvent()
+
 // import optional components
-if (config.fab.enable) {
-    import("./components/fab.js")
-}
-if (config.search.enable) {
-    import("./components/searchBox.js")
-}
-if (config.catalog.enable) {
+if (isEnabled(config.fab)) import("./components/fab.js")
+if (isEnabled(config.search)) import("./components/searchBox.js")
+if (isEnabled(config.catalog)) {
     function passEvent() {
         if (isToShow) {
             eventbus.emit("article-rendered", items)

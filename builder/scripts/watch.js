@@ -1,23 +1,22 @@
 import fs from "node:fs"
 import path from "node:path"
 import chokidar from "chokidar"
-import getNewest from "../getNewest.js"
+import getNewest, { isIgnoredDirResolver } from "../getNewest.js"
 import saveIndex from "./indexing/saveIndex.js"
 import saveNewest from "./indexing/saveNewest.js"
 import { config } from "../utils/loadConfig.js"
 import { staticPath } from "../utils/path.js"
-import { readmeFilename } from "../utils/filename.js"
+import { ignoredByNewests, readmeFilename } from "../utils/filename.js"
 import { traversal } from "../utils/directory.js"
 import debounce from "../../common/debounce.js"
+import isEnabled from "../../common/isEnabled.js"
 
 async function update() {
     const staticDir = traversal(staticPath)
     await saveIndex(staticDir)
 
-    const newests = getNewest(staticDir)
-    if (config.newest.enable) {
-        await saveNewest(newests.children)
-    }
+    const newests = getNewest(staticDir, isIgnoredDirResolver(ignoredByNewests))
+    if (isEnabled(config.newest)) await saveNewest(newests.children)
 }
 
 export default function entry(onChangeCallback) {

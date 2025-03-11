@@ -1,5 +1,5 @@
 import { Directory, File } from "./utils/directory.js"
-import { orderby, readmeFilename, reverseFilename } from "./utils/filename.js"
+import { orderBy, readmeFilename, reverseFilename } from "./utils/filename.js"
 
 class FileMonoStack {
     /**
@@ -42,19 +42,36 @@ class FileMonoStack {
     }
 }
 
-const ignoredFiled = [...readmeFilename, ...reverseFilename, ...orderby]
-export default function getNewest(dir) {
+/**
+ * @param {string[]} ignoredFiles 
+ * @returns {(item: Directory | File) => boolean}
+ */
+export function isIgnoredDirResolver(ignoredFiles) {
+    return (item) => {
+        if (!(item instanceof Directory)) return false
+        return ignoredFiles.map(name => item.has(name)).some(item => item)
+    }
+}
+
+const ignoredFiles = [...readmeFilename, ...reverseFilename, ...orderBy]
+/**
+ * @param {Directory} dir
+ * @param {((item: File | Directory) => boolean)} [ignoredPredicator]
+ * @returns {FileMonoStack}
+ */
+export default function getNewest(dir, ignoredPredicator) {
     const fileStack = new FileMonoStack()
 
     for (const item of dir.items) {
+        if (ignoredPredicator && ignoredPredicator(item)) continue
         if (item instanceof File) {
-            if (ignoredFiled.includes(item.name)) {
+            if (ignoredFiles.includes(item.name)) {
                 continue
             }
             fileStack.push(item)
         } else if (item instanceof Directory) {
             // recursively read folder
-            const subFileStack = getNewest(item)
+            const subFileStack = getNewest(item, ignoredPredicator)
             fileStack.concat(subFileStack)
         }
     }

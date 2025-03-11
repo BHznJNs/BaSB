@@ -50,12 +50,6 @@ interface RSSConfig extends OptionalComponentConfig {
     size: number
 
     /**
-     * - Directories ignored by RSS, relative to `static`.
-     * - RSS 功能忽略的文件夹，相对于 `static`。
-     */
-    ignoredDir?: string[]
-
-    /**
      * - Extra customized metadata for the RSS feed.
      * - RSS 文件的额外的自定义头数据。
      */
@@ -74,12 +68,6 @@ interface NewestConfig extends OptionalComponentConfig {
      * - 最新博文页面的单页文章数量，默认使用全局的 `pageSize`。
      */
     pageSize: number
-
-    /**
-     * - Directories ignored by the newest articles feature, relative to `static`.
-     * - 最新博文功能忽略的文件夹，相对于 `static`。
-     */
-    ignoredDir?: string[]
 }
 
 interface SearchConfig extends OptionalComponentConfig {
@@ -401,16 +389,15 @@ export interface SiteConfig {
      * - Additional JavaScript scripts for the page.
      * - 页面加载的额外 JavaScript 脚本。
      */
-    extraScripts: string[]
+    extraScripts?: string[]
 
     /**
      * - Additional customized metadata scripts for the page.
      * - 页面上额外的自定义元数据。
      */
-    extraMetadata: Metadata[]
+    extraMetadata?: Metadata[]
 
     preview?: PreviewConfig
-
     fab?: FABConfig
     catalog?: CatalogConfig
     rss?: RSSConfig

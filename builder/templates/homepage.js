@@ -8,7 +8,7 @@ import { config } from "../utils/loadConfig.js"
 import { ssrListPath } from "../utils/path.js"
 import languageSelector from "../utils/languageSelector.js"
 import el from "../../frontend/utils/dom/el.js"
-import isEnabled from "../utils/isEnabled.js"
+import isEnabled from "../../common/isEnabled.js"
 
 const noscript = `\
 <noscript>

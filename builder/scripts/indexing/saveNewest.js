@@ -3,25 +3,8 @@ import { config } from "../../utils/loadConfig.js"
 import slice from "../../utils/slice.js"
 import { indexFilePath } from "../../utils/path.js"
 
-function isInIgnoredDir(path, ignoredDirs) {
-    if (!ignoredDirs) {
-        return false
-    }
-
-    for (const dirName of ignoredDirs) {
-        if (path.startsWith(staticPath + dirName)) {
-            return true
-        }
-    }
-    return false
-}
-
-
 export default async function(newestList) {
-    const { ignoredDir } = config.newest
-    const filtered = newestList.filter(item =>
-        !isInIgnoredDir(item.path, ignoredDir))
-    const sliced = slice(filtered, config.newest.pageSize || config.pageSize)
+    const sliced = slice(newestList, config.newest.pageSize || config.pageSize)
     const count  = sliced.length
 
     let index = 0

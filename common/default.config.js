@@ -1,4 +1,4 @@
-/** @type {import("../types/index").SiteConfig} */
+/** @type {import("../types/index.d.ts").SiteConfig} */
 export default {
     homepage: "https://www.example.com/",
     title: "Blog as Second Brain",

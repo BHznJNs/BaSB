@@ -3,11 +3,14 @@ import keydownEvent from "../utils/dom/keydownEvent.js"
 import pathManager from "./pathManager.js"
 
 const mainEl       = document.querySelector("main")
+/** @type {HTMLElement | null} */
 const newest       = mainEl.querySelector("#newest")
+/** @type {HTMLElement} */
 const parentDirBtn = mainEl.querySelector("#previous-dir")
+/** @type {HTMLElement} */
 const articleList  = mainEl.querySelector("#article-list")
 
-newest.onkeydown = keydownEvent(newest)
+newest && (newest.onkeydown = keydownEvent(newest))
 parentDirBtn.onkeydown = keydownEvent(parentDirBtn)
 parentDirBtn.addEventListener("click", () => {
     pageController.back()
@@ -15,6 +18,7 @@ parentDirBtn.addEventListener("click", () => {
 })
 articleList.addEventListener("click", e => {
     const target = e.target
+    if (!(target instanceof HTMLElement)) return
 
     if (target === articleList) {
         // when click on the `articleList` itself

@@ -7,9 +7,10 @@
  *                             \/
  * [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]
  * ```
- * @param {Array<T>} itemList the list to be sliced
+ * @template T
+ * @param {T[]} itemList the list to be sliced
  * @param {number} pageSize the size of every sliced list
- * @returns {Array<T>} sliced lists
+ * @returns {T[][]} sliced lists
  */
 export default function(itemList, pageSize) {
     let startIndex = 0

@@ -1,5 +1,5 @@
 import path from "node:path"
-import isEnabled from "../utils/isEnabled.js"
+import isEnabled from "../../common/isEnabled.js"
 import { config } from "../utils/loadConfig.js"
 import languageSelector from "../utils/languageSelector.js"
 import el from "../../frontend/utils/dom/el.js"
@@ -139,9 +139,7 @@ export function loadExtraScripts(base="./") {
 }
 
 export function footer() {
-    if (!config.footer) {
-        return ""
-    }
+    if (!config.footer) return ""
 
     const footerContent = renderer(config.footer)
         .map(node => node.toHTML())

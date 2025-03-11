@@ -4,7 +4,7 @@ import path from "node:path"
 const userConfigPath = path.join(process.cwd(), "user/build.config.js")
 const isValidDirectory = fs.existsSync(userConfigPath)
 
-/** @type {import("../../types/index").SiteConfig} */
+/** @type {import("../../types/index.d.ts").SiteConfig} */
 const config = (await import(
     isValidDirectory
         ? "file:\\\\" + userConfigPath
@@ -14,7 +14,7 @@ const config = (await import(
 try {
     new URL(config.homepage)
 } catch {
-    console.log("Invalid homepage URL: ", config.homepage)
+    console.error("Invalid homepage URL: ", config.homepage)
     process.exit(1)
 }
 

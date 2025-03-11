@@ -7,6 +7,7 @@ import el from "../utils/dom/el.js"
 import { scrollToTop } from "../utils/dom/scrollControl.js"
 import languageSelector from "../utils/languageSelector.js"
 import eventbus from "../../common/eventbus/inst.js"
+import isEnabled from "../../common/isEnabled"
 
 const fabItem = (imgName, title) => el("button",
     el("img", "", {
@@ -38,7 +39,7 @@ class FabIcon extends HTMLElement {
         this.#subItems.backToTop        = fabItem("back-to-top"   , languageSelector("返回顶部"       , "Back to Top"   ))
         this.#subItems.enlargeText      = fabItem("zoom-in"       , languageSelector("放大文本"       , "Enlarge Text"  ))
         this.#subItems.downsizeText     = fabItem("zoom-out"      , languageSelector("缩小文本"       , "Downsize Text" ))
-        if (config.catalog.enable) {
+        if (isEnabled(config.catalog)) {
             this.#subItems.catalogSwitcher =
                 fabItem("catalog", languageSelector("开启/关闭菜单" , "Open/Close Catalog"))
         }

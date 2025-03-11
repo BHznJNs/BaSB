@@ -5,6 +5,7 @@ import {
 import { config } from "../utils/loadConfig.js"
 import { formatEchartsDate, insertDataIntoMap } from "../scripts/count/utils.js"
 import languageSelector from "../utils/languageSelector.js"
+/** @import {ArticleMetadata} from "../../types/ArticleMetadata.d.ts"  */
 
 const now = Date.now()
 const oneYear = 365 * 24 * 60 * 60 * 1000
@@ -21,6 +22,29 @@ function classifyDataByDay(metadataList) {
         insertDataIntoMap(resultMap, [formatEchartsDate(date), count])
     }
     return Array.from(resultMap.entries())
+}
+
+function classifyDataByMonth(metadataList) {
+    /** @type {(d: Date) => string} */
+    const yearMonthFormater = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
+
+    const now = new Date()
+    /** @type {Map<string, number>} */
+    const monthCountMap = new Map(Array.from({ length: 12 }, (_, i) => {
+        const d = new Date(now.getFullYear(), now.getMonth() - i, 1)
+        return [yearMonthFormater(d), 0]
+    }))
+    for (const data of metadataList) {
+        const d = new Date(data.date)
+        const key = yearMonthFormater(d)
+        const currentCount = monthCountMap.get(key)
+        if (currentCount === undefined) continue
+        monthCountMap.set(key, currentCount + data.count)
+    }
+    return {
+        months: Array.from(monthCountMap.keys()).reverse(),
+        count: Array.from(monthCountMap.values()).reverse(),
+    }
 }
 
 function classifyDataByYear(metadataList) {
@@ -57,13 +81,13 @@ function classifyDataByCatalog(metadataList) {
     return { historyData, annualData }
 }
 
-function injectedScriptGenerator(lastYearData, multiYearData, multiCatalogData) {
+function injectedScriptGenerator(lastYearData, multiMonthData, multiYearData, multiCatalogData) {
     const startDate = formatEchartsDate(now - oneYear)
     const endDate = formatEchartsDate(now)
     const paddingWidth = 4
 
     const lastYearOption = {
-        width: 1200,
+        width: 1280,
         height: 280,
         title: {
             top: 20,
@@ -96,6 +120,32 @@ function injectedScriptGenerator(lastYearData, multiYearData, multiCatalogData) 
             data: lastYearData,
         }
     }
+    const pastMonthsOption = {
+        title: {
+            top: 30,
+            left: "center",
+            text: languageSelector("过去 12 个月字数统计", "Word Counts for the Last 12 Months")
+        },
+        xAxis: {
+            type: "category",
+            data: multiMonthData.months,
+        },
+        yAxis: { type: "value" },
+        grid: {
+            top: 80,
+            left: 75,
+        },
+        dataZoom: {
+            type: "slider",
+            startValue: 6,
+            endValue: 11,
+            zoomLock: true,
+        },
+        series: {
+            data: multiMonthData.count,
+            type: "bar",
+        },
+    };
     const pastYearsOption = {
         title: {
             top: 30,
@@ -120,7 +170,7 @@ function injectedScriptGenerator(lastYearData, multiYearData, multiCatalogData) 
         series: {
             data: multiYearData.data,
             type: "bar",
-        }
+        },
     }
     const catalogsOption = {
         title: [
@@ -162,6 +212,7 @@ function injectedScriptGenerator(lastYearData, multiYearData, multiCatalogData) 
 import echartsImporter from "../dist/echarts.min.js"
 
 document.querySelector("#last-year").__ChartOptions__ = ${JSON.stringify(lastYearOption)}
+document.querySelector("#past-months").__ChartOptions__ = ${JSON.stringify(pastMonthsOption)}
 document.querySelector("#past-years").__ChartOptions__ = ${JSON.stringify(pastYearsOption)}
 document.querySelector("#catalogs").__ChartOptions__ = ${JSON.stringify(catalogsOption)}
 echartsImporter()
@@ -184,6 +235,13 @@ function bodyContentGenerator(startDate, articleCount, totalCount) {
 <div class="echarts-container" id="last-year"></div>
 </div>
 <p>${languageSelector(
+    "下面是你在过去一年中每月输出的字数：",
+    "The chart following shows the word count you outputed in the past 12 months:"
+)}</p>
+<div class="media-container">
+<div class="echarts-container" id="past-months"></div>
+</div>
+<p>${languageSelector(
     "下面是你在过去几年中每一年输出的字数：",
     "The chart following shows the word count you outputed in the past few years:"
 )}</p>
@@ -200,13 +258,20 @@ function bodyContentGenerator(startDate, articleCount, totalCount) {
     return resultContent
 }
 
+/**
+ * @param {number} startTime
+ * @param {ArticleMetadata[]} metadataList
+ * @param {number} totalWordCount
+ * @returns {string}
+ */
 export default function (startTime, metadataList, totalWordCount) {
     const lastYearData = classifyDataByDay(metadataList)
+    const multiMonthData = classifyDataByMonth(metadataList)
     const multiYearData = classifyDataByYear(metadataList)
     const multiCatalogData = classifyDataByCatalog(metadataList)
 
     const startDate = new Intl.DateTimeFormat().format(new Date(startTime))
-    const injectedScript = injectedScriptGenerator(lastYearData, multiYearData, multiCatalogData)
+    const injectedScript = injectedScriptGenerator(lastYearData, multiMonthData, multiYearData, multiCatalogData)
     const bodyContent = bodyContentGenerator(startDate, metadataList.length, totalWordCount)
 
     const template = `\
@@ -220,12 +285,12 @@ ${header(
 }
 </head>
 <body>
-${inlineDarkmodeSwitcherScript("../")}
+${inlineDarkmodeSwitcherScript()}
 ${navigator("../")}
 <article>
 ${bodyContent}
 </article>
-${footer("../")}
+${footer()}
 ${injectedScript}
 </body>
 </html>`

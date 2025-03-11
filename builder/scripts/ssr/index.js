@@ -2,27 +2,15 @@ import fs from "node:fs"
 import path from "node:path"
 import rssFileFactory, { RSSItem } from "./rssFileFactory.js"
 import { analyze, renderToHTML } from "./ssrItemRenderer.js"
-import getNewest from "../../getNewest.js"
+import getNewest, { isIgnoredDirResolver } from "../../getNewest.js"
 import staticList from "../../templates/ssrList.js"
 import { config } from "../../utils/loadConfig.js"
 import { traversal } from "../../utils/directory.js"
 import { staticPath, rssFilePath, ssrResourcePath, ssrCachePath, ssrListPath } from "../../utils/path.js"
 import { execute as executeImagesRendering } from "../../utils/renderer/index.js"
 import calculateMD5 from "../../utils/md5.js"
-import isEnabled from "../../utils/isEnabled.js"
-
-function isInIgnoredDir(path, ignoredDirs) {
-    if (!ignoredDirs) {
-        return false
-    }
-
-    for (const dirName of ignoredDirs) {
-        if (path.startsWith(staticPath + dirName)) {
-            return true
-        }
-    }
-    return false
-}
+import { ignoredByRSS } from "../../utils/filename.js"
+import isEnabled from "../../../common/isEnabled.js"
 
 /**
  * @param {string[]} pathList 
@@ -56,16 +44,12 @@ class SSRResourceCache {
 export default async function() {
     if (!isEnabled(config.rss)) return
 
-    if (!fs.existsSync(ssrResourcePath)) {
-        fs.mkdirSync(ssrResourcePath)
-    }
-    if (!fs.existsSync(ssrCachePath)) {
-        fs.writeFileSync(ssrCachePath, "{}")
-    }
+    if (!fs.existsSync(ssrResourcePath)) fs.mkdirSync(ssrResourcePath)
+    if (!fs.existsSync(ssrCachePath)) fs.writeFileSync(ssrCachePath, "{}")
     globalThis.__SSRCache__ = new SSRResourceCache(ssrCachePath)
 
     const staticDir = traversal(staticPath)
-    const newestItems = getNewest(staticDir)
+    const newestItems = getNewest(staticDir, isIgnoredDirResolver(ignoredByRSS))
     const fileCache = await readAllArticles(newestItems.children.map(item => item.path))
     const tasks = []
     for (const file of newestItems.children) {
@@ -89,9 +73,7 @@ export default async function() {
     }
 
     const rssCapacity = config.rss.size
-    const rssIgnoredDirs = config.rss.ignoredDir
     const rssItems = newestItems.children
-        .filter(item => !isInIgnoredDir(item.path, rssIgnoredDirs))
         .slice(0, rssCapacity)
         .map(article => RSSItem.from(article))
     const rssContent = rssFileFactory(rssItems)

@@ -56,6 +56,7 @@ export async function hashChangeEvent(e) {
     if (pathManager.isIn.directory()) {
         // open directory
         const index = await fetchJSON(getIndexPathFromHash())
+        console.log(index)
         if (!index) return
         newestHeader.classList.add("hidden")
         directoryHeader.classList.remove("hidden")
@@ -73,8 +74,8 @@ export async function hashChangeEvent(e) {
         pathManager.homepage()
     }
 
-    mainEl.setAttribute("data-is-root", hash === "static/")
-    mainEl.setAttribute("data-is-newest", hash.startsWith("newest/"))
+    mainEl.setAttribute("data-is-root", String(hash === "static/"))
+    mainEl.setAttribute("data-is-newest", String(hash.startsWith("newest/")))
     mainEl.classList.remove("disabled")
 
     const getHash = url => new URL(url).hash
@@ -87,7 +88,6 @@ export async function hashChangeEvent(e) {
 }
 
 window.addEventListener("hashchange", hashChangeEvent)
-window.addEventListener("load", hashChangeEvent)
 
 const homepagePath = "static/"
 const newestPath = "newest/"
@@ -134,4 +134,6 @@ const pathManager = {
         }
     }
 }
+
+
 export default pathManager

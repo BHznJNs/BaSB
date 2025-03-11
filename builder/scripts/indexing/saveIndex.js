@@ -15,6 +15,7 @@ function pathToIndexFilename(path, index) {
 
 /**
  * @param {Directory} directory
+ * @param {boolean} [recursive=true]
  */
 export default async function saveIndex(directory, recursive=true) {
     if (!fs.existsSync(indexFilePath)) {

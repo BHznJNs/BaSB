@@ -1,9 +1,12 @@
 import fs from "node:fs"
-import getNewest from "../../getNewest.js"
+import getNewest, { isIgnoredDirResolver } from "../../getNewest.js"
 import countTemplate from "../../templates/count.js"
-import { traversal } from "../../utils/directory.js"
+import { Directory, traversal } from "../../utils/directory.js"
 import { countPagePath } from "../../utils/path.js"
 import mdResolver from "../../utils/markdown/index.js"
+import languageSelector from "../../utils/languageSelector.js"
+import { ignoredByCounter } from "../../utils/filename.js"
+/** @import {ArticleMetadata} from "../../../types/ArticleMetadata.d.ts" */
 
 function countFile(path) {
     const content = fs.readFileSync(path, "utf-8")
@@ -34,23 +37,28 @@ function getFileCatalog(path) {
     return pathWithoutStatic.substring(0, firstSlashIndex)
 }
 
-const staticDir = traversal("static")
-const newests = getNewest(staticDir)
-
-// total word count & write dates & catalogs
-const metadataList  = []
-let totalWordCount = 0
-for (const file of newests.children) {
-    const date  = file.createTime
-    const count = countFile(file.path)
-    const catalog = getFileCatalog(file.path)
-
-    metadataList.push({ date, count, catalog })
-    totalWordCount += count
-}
-
 export default function() {
+    const staticDir = traversal("static")
+    const newests = getNewest(staticDir, isIgnoredDirResolver(ignoredByCounter))
+
+    // total word count & write dates & catalogs
+    /** @type {ArticleMetadata[]} */
+    const metadataList = []
+    let totalWordCount = 0
+    for (const file of newests.children) {
+        const date  = file.createTime
+        const count = countFile(file.path)
+        const catalog = getFileCatalog(file.path)
+
+        metadataList.push({ date, count, catalog })
+        totalWordCount += count
+    }
+
     const firstArticle = newests.children[newests.length - 1]
+    if (firstArticle === undefined) {
+        console.warn(languageSelector("暂无内容，无法生成统计信息。", "No blogs, not able to generate statistic page."))
+        return
+    }
     const startTime = firstArticle.createTime
     const pageContent = countTemplate(startTime, metadataList, totalWordCount)
     fs.writeFileSync(countPagePath, pageContent)

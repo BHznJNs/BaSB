@@ -12,6 +12,7 @@ function commandScriptRunner(...commandScripts) {
      */
     const scriptBlackList = [
         scripts.preview,
+        scripts.upgrade,
         scripts.watch,
         scripts.build,
         scripts.ssr,
@@ -44,6 +45,7 @@ function commandScriptRunner(...commandScripts) {
 const program = new Command()
 const scripts = {
     create: "./builder/scripts/create.js",
+    upgrade: "./builder/scripts/upgrade.js",
     preview: "./builder/scripts/preview.js",
     watch: "./builder/scripts/watch.js",
     build: "./builder/scripts/build.js",
@@ -64,6 +66,10 @@ program.command("create")
     .description(languageSelector("创建 BaSB 项目", "Create BaSB repository"))
     .argument("<name>", languageSelector("项目名称", "Repository name"))
     .action(commandScriptRunner(scripts.create))
+
+program.command("upgrade")
+    .description(languageSelector("升级 BaSB 项目", "Upgrade BaSB repository"))
+    .action(commandScriptRunner(scripts.upgrade))
 
 program.command("preview")
     .description(languageSelector("启动预览服务器", "Launch preview server"))
