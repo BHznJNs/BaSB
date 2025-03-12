@@ -1,4 +1,4 @@
-/** @type {import("basb-cli/types").SiteConfig}*/
+/** @type {import("basb-cli/types").SiteConfig} */
 export default {
     homepage: "https://www.example.com/",
     title: "Blog as Second Brain",
@@ -23,10 +23,6 @@ export default {
             "backToParent",
             "backToTop",
         ],
-    },
-    rss: {
-        enable: true,
-        size: 50,
     },
     search: {
         enable: true,
