@@ -56,7 +56,6 @@ export async function hashChangeEvent(e) {
     if (pathManager.isIn.directory()) {
         // open directory
         const index = await fetchJSON(getIndexPathFromHash())
-        console.log(index)
         if (!index) return
         newestHeader.classList.add("hidden")
         directoryHeader.classList.remove("hidden")
