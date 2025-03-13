@@ -12,6 +12,7 @@ export default function(targetDirname) {
 ${languageSelector("创建完成。现在请运行：", "Created. Now run:")}
 
 cd ${targetDirname}
+npm link basb-cli
 ${packageMetadata.name} build
 ${packageMetadata.name} preview
 `

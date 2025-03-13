@@ -31,7 +31,6 @@ body > article:first-child {
 
 #article-container {
     width: 100%;
-    overflow-x: hidden;
     /* prevent the shadow of `article` be hidden */
     padding-top: 2rem;
     margin-top: -2rem;

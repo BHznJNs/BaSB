@@ -2,7 +2,7 @@
 export default {
     homepage: "https://www.example.com/",
     title: "Blog as Second Brain",
-    description: "Blog as Second Brain",
+    description: "The documentation for BaSB",
     language: "en",
     pageSize: 20,
 

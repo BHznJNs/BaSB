@@ -58,7 +58,7 @@ const scripts = {
 
 // --- --- --- --- --- ---
 
-program.name("BaSB-cli")
+program.name(packageMetadata.name)
     .version(packageMetadata.version)
     .description(packageMetadata.description)
 
@@ -92,7 +92,7 @@ program.command("indexing")
     .action(commandScriptRunner(scripts.indexing))
 
 program.command("count")
-    .description(languageSelector("字数计数", "Count blog words"))
+    .description(languageSelector("字数计数并生成统计页面文件", "Count blog words and generate statistic page file"))
     .action(commandScriptRunner(scripts.count))
 
 program.command("backup")
