@@ -4,10 +4,12 @@
     <h1>BaSB</h1>
     <a href="README_zh.md">中文介绍</a> | 
     <a href="https://bhznjns.github.io/BaSB/">Documentation</a> | 
-    <a href="https://github.com/BHznJNs/BaSB/issues">Feedback</a> |
+    <a href="https://github.com/BHznJNs/BaSB/issues">Feedback</a>
     <br />
     <br />
 </div>
+
+**B**log **a**s **S**econd **B**rain!
 
 ## Getting Started
 
