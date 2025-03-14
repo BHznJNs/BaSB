@@ -29,21 +29,24 @@ function classifyDataByMonth(metadataList) {
     const yearMonthFormater = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
 
     const now = new Date()
-    /** @type {Map<string, number>} */
+    /** @type {Map<string, {countData: number, wordsData: number}>} */
     const monthCountMap = new Map(Array.from({ length: 12 }, (_, i) => {
         const d = new Date(now.getFullYear(), now.getMonth() - i, 1)
-        return [yearMonthFormater(d), 0]
+        return [yearMonthFormater(d), {countData: 0, wordsData: 0}]
     }))
     for (const data of metadataList) {
         const d = new Date(data.date)
         const key = yearMonthFormater(d)
-        const currentCount = monthCountMap.get(key)
-        if (currentCount === undefined) continue
-        monthCountMap.set(key, currentCount + data.count)
+        const current = monthCountMap.get(key)
+        if (current === undefined) continue
+        monthCountMap.set(key, {
+            countData: current.countData + 1,
+            wordsData: current.wordsData + data.count,
+        })
     }
     return {
         months: Array.from(monthCountMap.keys()).reverse(),
-        count: Array.from(monthCountMap.values()).reverse(),
+        data: Array.from(monthCountMap.values()).reverse(),
     }
 }
 
@@ -130,21 +133,31 @@ function injectedScriptGenerator(lastYearData, multiMonthData, multiYearData, mu
             type: "category",
             data: multiMonthData.months,
         },
-        yAxis: { type: "value" },
+        yAxis: [
+            { type: "value", position: "left" , },
+            { type: "value", position: "right", },
+        ],
         grid: {
             top: 80,
             left: 75,
         },
         dataZoom: {
             type: "slider",
-            startValue: 6,
+            startValue: 8,
             endValue: 11,
             zoomLock: true,
         },
-        series: {
-            data: multiMonthData.count,
-            type: "bar",
-        },
+        series: [
+            {
+                data: multiMonthData.data.map(item => item.wordsData),
+                type: "bar",
+            },
+            {
+                data: multiMonthData.data.map(item => item.countData),
+                yAxisIndex: 1,
+                type: "line",
+            },
+        ],
     };
     const pastYearsOption = {
         title: {
@@ -235,8 +248,8 @@ function bodyContentGenerator(startDate, articleCount, totalCount) {
 <div class="echarts-container" id="last-year"></div>
 </div>
 <p>${languageSelector(
-    "下面是你在过去一年中每月输出的字数：",
-    "The chart following shows the word count you outputed in the past 12 months:"
+    "下面是你在过去一年中每月输出的字数和文章数：",
+    "The chart following shows the word count and article count you outputed in the past 12 months:"
 )}</p>
 <div class="media-container">
 <div class="echarts-container" id="past-months"></div>
