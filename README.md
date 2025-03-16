@@ -34,4 +34,5 @@ basb-cli preview
 
 ## VSCode Extention
 
-It will works better with the [assistant VSCode extension](https://github.com/BHznJNs/BaSB-ext).
+1. The [official enhancement extension](https://marketplace.visualstudio.com/items?itemName=BHznJNs.basb-ext)
+2. The [linter](https://marketplace.visualstudio.com/items?itemName=huacnlee.autocorrect) for scenes where CJK and English are mixed

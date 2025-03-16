@@ -34,4 +34,5 @@ basb-cli preview
 
 ## VSCode 拓展
 
-在与[辅助 VSCode 拓展](https://github.com/BHznJNs/BaSB-ext)一起使用时此项目更易用。
+1. [官方增强拓展](https://marketplace.visualstudio.com/items?itemName=BHznJNs.basb-ext)
+2. 在中日韩字符与英文混写的场景下的[格式纠正工具](https://marketplace.visualstudio.com/items?itemName=huacnlee.autocorrect)
