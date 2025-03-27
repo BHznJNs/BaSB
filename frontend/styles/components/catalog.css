@@ -12,6 +12,11 @@ article-catalog {
                 transform .45s;
 }
 
+@media print {
+    article-catalog {
+        display: none;
+    }
+}
 @media screen and (min-width: 768px) {
     /* desktop styles */
     article-catalog {
