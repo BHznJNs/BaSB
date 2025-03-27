@@ -1,11 +1,25 @@
 import fs from "node:fs"
 import path from "node:path"
-import { orderByCreateTime, orderByFilename, orderByModifyTime, reverseFilename } from "./filename.js"
+import {
+    orderByCreateTime,
+    orderByFilename,
+    orderByModifyTime,
+    reverseFilename,
+    ignoredByNewests,
+    ignoredByRSS,
+    ignoredBySearch,
+    ignoredByCounter,
+} from "./filename.js"
 import { ssrResourcePath } from "./path.js"
 
-const ORDERBY_CREATE_TIME = 0
-const ORDERBY_MODIFY_TIME = 1
-const ORDERBY_FILENAME = 2
+export const ORDERBY_CREATE_TIME = Symbol(0)
+export const ORDERBY_MODIFY_TIME = Symbol(1)
+export const ORDERBY_FILENAME    = Symbol(2)
+
+export const IGNOREDBY_NEWESTS = Symbol(0)
+export const IGNOREDBY_RSS     = Symbol(1)
+export const IGNOREDBY_SEARCH  = Symbol(2)
+export const IGNOREDBY_COUNTER = Symbol(3)
 
 /**
  * @param {string} dirPath A path for a directory
@@ -50,6 +64,17 @@ export function traversal(dirPath) {
             } else if (orderByFilename.includes(item)) {
                 currentDir.orderby = ORDERBY_FILENAME; continue
             }
+
+            if (ignoredByNewests.includes(item)) {
+                currentDir.ignoredBy = IGNOREDBY_NEWESTS; continue
+            } else if (ignoredByRSS.includes(item)) {
+                currentDir.ignoredBy = IGNOREDBY_RSS; continue
+            } else if (ignoredBySearch.includes(item)) {
+                currentDir.ignoredBy = IGNOREDBY_SEARCH; continue
+            } else if (ignoredByCounter.includes(item)) {
+                currentDir.ignoredBy = IGNOREDBY_COUNTER; continue
+            }
+
             if (reverseFilename.includes(item)) {
                 currentDir.isReversed = true; continue
             }
@@ -72,7 +97,10 @@ export class Directory {
     modifyTime = 0
     updateTime = 0
     isReversed = false
+    /** @type {ORDERBY_CREATE_TIME | ORDERBY_MODIFY_TIME | ORDERBY_FILENAME} */
     orderby = ORDERBY_CREATE_TIME
+    /** @type {IGNOREDBY_NEWESTS | IGNOREDBY_RSS | IGNOREDBY_SEARCH | IGNOREDBY_COUNTER | null} */
+    ignoredBy = null
 
     /**
      * @param {string} name
@@ -96,7 +124,7 @@ export class Directory {
             if (b instanceof Directory && a instanceof File) {
                 return 1
             }
-    
+
             let cmpResult
             if (this.orderby === ORDERBY_CREATE_TIME) {
                 // newer at the fronter position
@@ -111,6 +139,10 @@ export class Directory {
         })
     }
 
+    /**
+     * @param {string} name
+     * @returns {boolean}
+     */
     has(name) {
         for (const item of this.items) {
             if (item.name == name) return true;
@@ -119,10 +151,7 @@ export class Directory {
     }
 
     static clear(path) {
-        if (!fs.existsSync(path)) {
-            return
-        }
-    
+        if (!fs.existsSync(path)) return
         const dirContent = fs.readdirSync(path)
         for (const file of dirContent) {
             const filePath = path + file
@@ -135,6 +164,12 @@ export class Directory {
 }
 
 export class File {
+    /**
+     * @param {string} name
+     * @param {string} filePath
+     * @param {number} createTime
+     * @param {number} modifyTime
+     */
     constructor(name, filePath, createTime, modifyTime) {
         const filenameWithoutExt = path.basename(name, path.extname(name))
         this.name = name

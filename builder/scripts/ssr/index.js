@@ -2,14 +2,13 @@ import fs from "node:fs"
 import path from "node:path"
 import rssFileFactory, { RSSItem } from "./rssFileFactory.js"
 import { analyze, renderToHTML } from "./ssrItemRenderer.js"
-import getNewest, { isIgnoredDirResolver } from "../../getNewest.js"
+import getNewest, { ignoredPredicatorFactory } from "../../getNewest.js"
 import staticList from "../../templates/ssrList.js"
 import { config } from "../../utils/loadConfig.js"
-import { traversal } from "../../utils/directory.js"
+import { IGNOREDBY_RSS, traversal } from "../../utils/directory.js"
 import { staticPath, rssFilePath, ssrResourcePath, ssrCachePath, ssrListPath } from "../../utils/path.js"
 import { execute as executeImagesRendering } from "../../utils/renderer/index.js"
 import calculateMD5 from "../../utils/md5.js"
-import { ignoredByRSS } from "../../utils/filename.js"
 import isEnabled from "../../../common/isEnabled.js"
 
 /**
@@ -49,7 +48,7 @@ export default async function() {
     globalThis.__SSRCache__ = new SSRResourceCache(ssrCachePath)
 
     const staticDir = traversal(staticPath)
-    const newestItems = getNewest(staticDir, isIgnoredDirResolver(ignoredByRSS))
+    const newestItems = getNewest(staticDir, ignoredPredicatorFactory(IGNOREDBY_RSS))
     const fileCache = await readAllArticles(newestItems.children.map(item => item.path))
     const tasks = []
     for (const file of newestItems.children) {

@@ -1,11 +1,10 @@
 import fs from "node:fs"
-import getNewest, { isIgnoredDirResolver } from "../../getNewest.js"
+import getNewest, { ignoredPredicatorFactory } from "../../getNewest.js"
 import countTemplate from "../../templates/count.js"
-import { Directory, traversal } from "../../utils/directory.js"
+import { IGNOREDBY_COUNTER, traversal } from "../../utils/directory.js"
 import { countPagePath } from "../../utils/path.js"
 import mdResolver from "../../utils/markdown/index.js"
 import languageSelector from "../../utils/languageSelector.js"
-import { ignoredByCounter } from "../../utils/filename.js"
 /** @import {ArticleMetadata} from "../../../types/ArticleMetadata.d.ts" */
 
 function countFile(path) {
@@ -39,7 +38,7 @@ function getFileCatalog(path) {
 
 export default function() {
     const staticDir = traversal("static")
-    const newests = getNewest(staticDir, isIgnoredDirResolver(ignoredByCounter))
+    const newests = getNewest(staticDir, ignoredPredicatorFactory(IGNOREDBY_COUNTER))
 
     // total word count & write dates & catalogs
     /** @type {ArticleMetadata[]} */
