@@ -15,3 +15,39 @@ It is easy to reverse the order for a specific directory, just create a file nam
 - - -
 
 ##PS: it is required to run the command ``npm run build`` after the two identification files are created.##
+
+## File Sorting
+
+### Sort by Creation Time
+
+``orderby-create-time``
+
+### Sort by Modification Time
+
+``orderby-modify-time``
+
+### Sort by Filename
+
+``orderby-filename``
+
+### Sort by File Prefix Name
+
+``orderby-prefix``
+
+## Exclude Some Files
+
+### Exclude from Latest Blog Posts
+
+``newests-ignored``
+
+### Exclude from RSS
+
+``rss-ignored``
+
+### Exclude from Search
+
+``search-ignored``
+
+### Exclude from Statistics
+
+``counter-ignored``

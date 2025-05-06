@@ -9,12 +9,14 @@ import {
     ignoredByRSS,
     ignoredBySearch,
     ignoredByCounter,
+    orderByPrefix,
 } from "./filename.js"
 import { ssrResourcePath } from "./path.js"
 
 export const ORDERBY_CREATE_TIME = Symbol(0)
 export const ORDERBY_MODIFY_TIME = Symbol(1)
 export const ORDERBY_FILENAME    = Symbol(2)
+export const ORDERBY_PREFIX      = Symbol(3)
 
 export const IGNOREDBY_NEWESTS = Symbol(0)
 export const IGNOREDBY_RSS     = Symbol(1)
@@ -63,6 +65,8 @@ export function traversal(dirPath) {
                 currentDir.orderby = ORDERBY_MODIFY_TIME; continue
             } else if (orderByFilename.includes(item)) {
                 currentDir.orderby = ORDERBY_FILENAME; continue
+            } else if (orderByPrefix.includes(item)) {
+                currentDir.orderby = ORDERBY_PREFIX; continue
             }
 
             if (ignoredByNewests.includes(item)) {
@@ -97,7 +101,7 @@ export class Directory {
     modifyTime = 0
     updateTime = 0
     isReversed = false
-    /** @type {ORDERBY_CREATE_TIME | ORDERBY_MODIFY_TIME | ORDERBY_FILENAME} */
+    /** @type {ORDERBY_CREATE_TIME | ORDERBY_MODIFY_TIME | ORDERBY_FILENAME | ORDERBY_PREFIX} */
     orderby = ORDERBY_CREATE_TIME
     /** @type {IGNOREDBY_NEWESTS | IGNOREDBY_RSS | IGNOREDBY_SEARCH | IGNOREDBY_COUNTER | null} */
     ignoredBy = null
@@ -134,6 +138,20 @@ export class Directory {
             } else if (this.orderby === ORDERBY_FILENAME) {
                 // a-z order
                 cmpResult = a.name.localeCompare(b.name)
+            } else if (this.orderby === ORDERBY_PREFIX) {
+                const aPref = parseInt(a.name, 10)
+                const bPref = parseInt(b.name, 10)
+                const isAPrefNumber = !isNaN(aPref)
+                const isBPrefNumber = !isNaN(bPref)
+                if (isAPrefNumber && isBPrefNumber) {
+                    cmpResult = aPref - bPref
+                } else if (isAPrefNumber) {
+                    cmpResult = -1
+                } else if (isBPrefNumber) {
+                    cmpResult =  1
+                } else {
+                    cmpResult = a.name.localeCompare(b.name)
+                }
             } else {/* unreachable */}
             return this.isReversed ? -cmpResult : cmpResult
         })
