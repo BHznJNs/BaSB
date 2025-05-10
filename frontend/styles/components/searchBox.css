@@ -131,9 +131,3 @@ search-box .container .result-container .loadmore-btn {
 search-box .container .result-container .loadmore-btn.show {
     display: block;
 }
-
-@media screen and (max-width: 767px) {
-    search-box .container .result-container {
-        max-height: 60vh;
-    }
-}
