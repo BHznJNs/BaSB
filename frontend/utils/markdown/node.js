@@ -9,16 +9,7 @@ export class Headline {
         // "### test" -> "###"
         const splited = content.split(" ")
         const numberSignStr = splited[0]
-        let numberSignCount = 0
-        for (const ch of numberSignStr) {
-            if (ch === '#') {
-                numberSignCount += 1
-            }
-        }
-
-        if (numberSignCount > 6) {
-            numberSignCount = 0
-        }
+        const numberSignCount = Math.min(numberSignStr.length, 6)
 
         const rawContent = splited.slice(1).join(" ")
         this.tagName = "h" + numberSignCount
@@ -326,11 +317,13 @@ export class Image extends MediaNode {
 
     toHTML() {
         const actualUrl = MediaNode.srcUrlResolver(this.source)
+        const isDrawioDiagram = this.source.endsWith("drawio.svg")
         const imageEl = el("img", "", {
             src: actualUrl,
             alt: this.description,
             loading: "lazy",
             tabindex: 0,
+            "class": isDrawioDiagram ? "drawio" : undefined
         })
         imageEl.onclick = e =>
             window.open(e.target.src)

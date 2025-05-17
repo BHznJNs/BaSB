@@ -1,0 +1,15 @@
+<svg host="65bd71144e" xmlns="http://www.w3.org/2000/svg" style="background: transparent; background-color: transparent;" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="321px" height="61px" viewBox="-0.5 -0.5 321 61" content="&lt;mxfile&gt;&lt;diagram id=&quot;L_3SABZPERBFPmzYQl6J&quot; name=&quot;第 1 页&quot;&gt;zVTLboMwEPwarlXASZpcm/Rx6SmHtkcLb7ElwyLHBOjX18TrgEVTVapU9QKe8Xgfw5qE7cru0fBaPqMAnWQL0SVsn2TZcpu550D0nmCrtScKo4Sn0pE4qA8gckFsowQcI6FF1FbVMZljVUFuI44bg20se0cdZ615ATPikHM9Z1+UsNKzm+x25J9AFTJkTtdbv1PyIKZOjpILbCcUu0/YziBavyq7HejBu+CLP/dwZfdSmIHK/uTAksqwfegNhGuVYIWVe91JW2qHUrd0YU3/6sAigLcB3KwC3HfTzX1PyKcZYl8tlKgjNiYnFY2J5aYAUrGLSW64AEtwWZzEgOZWneLonD5zcdGNTrgFmfG1MZT6xHVDQWdOGWwqAYKcaaWycKj5ufbWjX1sHIUDY6H73oJ5c3RgQzNDlyZdE27HEUzDXMnJ+AXdb+xg/8+Ov/TDwfFOnvcmPzZ2/wk=&lt;/diagram&gt;&lt;/mxfile&gt;">
+    <defs/>
+    <g>
+        <g>
+            <path d="M 120 30 L 193.63 30" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="stroke" style="stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));"/>
+            <path d="M 198.88 30 L 191.88 33.5 L 193.63 30 L 191.88 26.5 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="all" style="fill: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));"/>
+        </g>
+        <g>
+            <rect x="0" y="0" width="120" height="60" rx="9" ry="9" fill="#ffffff" stroke="#000000" pointer-events="all" style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));"/>
+        </g>
+        <g>
+            <rect x="200" y="0" width="120" height="60" rx="9" ry="9" fill="#ffffff" stroke="#000000" pointer-events="all" style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));"/>
+        </g>
+    </g>
+</svg>

@@ -36,3 +36,4 @@ basb-cli preview
 
 1. The [official enhancement extension](https://marketplace.visualstudio.com/items?itemName=BHznJNs.basb-ext)
 2. The [linter](https://marketplace.visualstudio.com/items?itemName=huacnlee.autocorrect) for scenes where CJK and English are mixed
+3. [Draw.io official VSCode extension](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio)

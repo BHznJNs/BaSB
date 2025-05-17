@@ -55,6 +55,10 @@ div.media-container iframe {
     vertical-align: bottom;
 }
 
+div.media-container img.drawio {
+    margin: 1rem;
+} 
+
 /*
     Image load error solution reference:
     https://www.zhangxinxu.com/wordpress/2020/10/css-style-image-load-fail/
