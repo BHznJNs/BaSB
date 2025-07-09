@@ -1,6 +1,7 @@
 import importStyle from "../style.js"
 import ChartImporter from "./importer.js"
 import { config } from "../../../utils/loadConfig.js"
+import removeUndefinedFields from "../../../../common/removeUndefinedFields.js"
 
 let railroadRenderOptions = null
 const globalOptions = config.railroadOptions ?? {}
@@ -60,13 +61,13 @@ class RailroadImporter extends ChartImporter {
             default: rr,
             Options,
         } = module
-        Object.assign(Options, {
+        Object.assign(Options, removeUndefinedFields({
             VS                : globalOptions.verticalGap,
             AR                : globalOptions.arcRadius,
             INTERNAL_ALIGNMENT: globalOptions.internalAlignment,
             CHAR_WIDTH        : globalOptions.charWidth,
             COMMENT_CHAR_WIDTH: globalOptions.commentCharWidth,
-        })
+        }))
         railroadRenderOptions = Options
         return [
             rr.Diagram,
