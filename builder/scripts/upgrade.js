@@ -1,7 +1,6 @@
 import fs from "node:fs"
 import path from "node:path"
 
-import { packageMetadata } from "../utils/loadPackageMetadata.js"
 import languageSelector from "../utils/languageSelector.js"
 import { templatePath } from "../utils/path.js"
 
@@ -11,8 +10,6 @@ const filesNeedToUpgrade = [
 ]
 
 export default function() {
-    const { name: packageName } = packageMetadata
-
     const cwd = process.cwd()
     for (const file of filesNeedToUpgrade) {
         const srcPath = path.join(templatePath, file)
@@ -21,6 +18,6 @@ export default function() {
         fs.cpSync(srcPath, destPath, { recursive: true })
     }
     console.log(languageSelector(
-        `${packageName} 升级成功。`,
-        `${packageName} upgraded successfully.`))
+        `你的博脑项目升级成功。`,
+        `Your BaSB project has been upgraded successfully.`))
 }
