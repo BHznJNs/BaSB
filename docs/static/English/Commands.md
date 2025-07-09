@@ -1,33 +1,37 @@
-# Commands
+# Command List
 
-## ``npm run backup``
+## CLI Commands
 
-Generate a ``backup.json`` file that stores the metadata (filename, file created date and file modified date) of all the files in the ``static`` directory. Should be used with the ``npm run restore``.
+Usage: basb-cli [options] [command]
 
-## ``npm run indexing``
+### Options
+- -V, \-\-version   output the version number
+- -h, \-\-help      display help for command
 
-Traverse the ``static`` directory, generate the file indexing files in the ``.index`` directory. If the newest feature is enabled, will update the newest indexes. If the searching feature is enabled, will update the searching indexes.
+### Commands
 
-## ``npm run build``
+- create <name>   Create BaSB project
+- upgrade         Upgrade BaSB project
+- preview         Start preview server
+- watch           Start watching static folder
+- build           Build
+- ssr             Server-side rendering
+- indexing        Build index files
+- count           Count words and generate statistics page file
+- backup          Backup blog metadata
+- restore         Restore blog metadata
+- help [command]  Display help for command
 
-Execute the command ``npm run indexing``. If the optional UI components in the configuration modified, apply the update to the page file. If the RSS feature is enabled, will generate ``rss.xml`` file and server side rendered HTML files for the newests articles.
+## Development Commands
 
-## ``npm run compress``
+### `npm run dev`
 
-Build the front-end source code with rollup. The configuration file for rollup is at ``builder/rollup.config.js``.
+Start the rollup development server, watch for source code changes and automatically bundle and build.
 
-## ``npm run count``
+### `npm run build`
 
-Count the word count information for all the articles, generate the ``count.html`` file in the root directory.
+Build the source code to the ``template`` directory.
 
-## ``npm run preview``
+### `npm run test`
 
-Start the preview server with the port defined in the ``previewPort`` field in the configuration file, the address for localhost and LAN will be given.
-
-## ``npm run restore``
-
-Read the ``backup.json`` file in the root directory to restore data. Should be used with ``npm run backup`` command.
-
-## ``npm run test``
-
-Run the test cases in the ``builder/test`` directory.
+Run the test cases in the `builder/test` directory.
