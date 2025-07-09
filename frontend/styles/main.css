@@ -1,5 +1,5 @@
 main {
-    margin: 0 var(--page-horizonal-padding);
+    margin: 0 var(--page-horizonal-padding) 2rem;
     padding: 1rem 2rem;
     border-radius: 1rem;
     color: var(--default-tx-color);
