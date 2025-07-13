@@ -110,13 +110,14 @@ main[data-is-root="true"][data-is-newest="false"] #newest {
     cursor: pointer;
     transition: color .3s,
                 background .3s,
-                padding .3s .05s;
+                box-shadow .3s .05s,
+                transform .3s .05s;
 }
 #article-list li:hover {
-    padding-top: 12px;
-    padding-bottom: 12px;
     color: var(--hovered-tx-color);
     background-color: var(--hovered-bg-color);
+    box-shadow: var(--shadow-sm);
+    transform: scaleY(1.0625);
 }
 
 #article-list li > *,
