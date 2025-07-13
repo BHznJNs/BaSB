@@ -3,6 +3,9 @@ div.details {
 }
 
 div.details details {
+    position: sticky;
+    top: 0;
+    z-index: 1;
     padding: 0 1rem;
     border-radius: 8px;
     transition: background .3s,
