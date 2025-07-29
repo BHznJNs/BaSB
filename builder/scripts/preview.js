@@ -74,5 +74,5 @@ export default function() {
         }
         console.log(`Listening: http://localhost:${port}/preview/`)
     })
-    mcpMain("http://localhost:${port}/preview/", mcpPort)
+    mcpMain(`http://localhost:${port}/preview/`, mcpPort)
 }

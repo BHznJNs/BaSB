@@ -88,7 +88,11 @@ The returned value is a JSON object with the following structure:
 }
 \`\`\``
 
-function mcpServerFactory() {
+export function setTargetEndpoint(targetEndpoint) {
+    mcpGlobalStates.targetEndpoint = targetEndpoint
+}
+
+export function mcpServerFactory() {
     /**
      * @param {string | string[]} path 
      * @returns {Promise<string>} The target article content in Markdown format
@@ -227,6 +231,6 @@ app.post("/mcp", async (req, res) => {
 export default function mcpMain(targetEndpoint_, port) {
     mcpGlobalStates.targetEndpoint = targetEndpoint_
     app.listen(port, "0.0.0.0", () => {
-        console.log(`MCP server listening on 0.0.0.0:${port}`)
+        console.log(`MCP server listening on 0.0.0.0:${port}, target endpoint: ${targetEndpoint_}.`)
     })
 }
