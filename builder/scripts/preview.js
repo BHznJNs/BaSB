@@ -3,6 +3,7 @@ import http from "node:http"
 import { WebSocketServer, WebSocket } from "ws"
 import express from "express"
 import startWatch from "./watch.js"
+import mcpMain from "./mcp.js"
 import { config } from "../utils/loadConfig.js"
 
 function getLANIpAddress() {
@@ -28,7 +29,11 @@ function getLANIpAddress() {
     return lanIP || "Unable to determine LAN IP"
 }
 
-const { port, liveReload } = config.preview
+const { port, mcpPort, liveReload } = config.preview ?? {
+    port: 3030,
+    mcpPort: 12560,
+    liveReload: true,
+}
 
 const app = express()
 const server = http.createServer(app)
@@ -60,7 +65,7 @@ export default function() {
     startWatch(() => {
         wsSet.forEach(ws => ws.send("refresh"))
     })
-    
+
     const LAN_IP = getLANIpAddress()
     server.listen(port, "0.0.0.0", () => {
         // listen in both LAN and localhost
@@ -68,5 +73,6 @@ export default function() {
             console.log(`Listening: http://${LAN_IP}:${port}/preview/`)
         }
         console.log(`Listening: http://localhost:${port}/preview/`)
-    })    
+    })
+    mcpMain("http://localhost:${port}/preview/", mcpPort)
 }

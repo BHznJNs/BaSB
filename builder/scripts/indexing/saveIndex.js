@@ -2,16 +2,9 @@ import fs from "node:fs"
 import path from "node:path"
 import slice from "../../utils/slice.js"
 import { Directory, File } from "../../utils/directory.js"
-import { indexFilePath, normalizePath } from "../../utils/path.js"
+import { indexFilePath, pathToIndexFilename } from "../../utils/path.js"
 import { readmeFilename } from "../../utils/filename.js"
 import { config } from "../../utils/loadConfig.js"
-
-function pathToIndexFilename(path, index) {
-    const normalizedPath = normalizePath(path)
-    const removedTailSlash = normalizedPath.replace(/\/$/, "")
-    const filename = removedTailSlash.split("/").join("+")
-    return filename + "_" + index
-}
 
 /**
  * @param {Directory} directory

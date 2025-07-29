@@ -19,3 +19,10 @@ export const templatePath = (() => {
 export function normalizePath(filePath) {
     return filePath.replace(/\\/g, "/")
 }
+
+export function pathToIndexFilename(path, index) {
+    const normalizedPath = normalizePath(path)
+    const removedTailSlash = normalizedPath.replace(/\/$/, "")
+    const filename = removedTailSlash.split("/").join("+")
+    return filename + "_" + index
+}

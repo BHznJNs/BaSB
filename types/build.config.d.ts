@@ -2,10 +2,16 @@ import { OptionalComponentConfig } from "./optionalComponentConfig"
 
 interface PreviewConfig {
     /**
-     * - Port ID for the preview server.
+     * - Port for the preview server.
      * - 预览服务器端口。
      */
     port: number
+
+    /**
+     * - Port for MCP server
+     * - MCP 服务器端口。
+     */
+    mcpPort: number
 
     /**
      * - Set `true` to enable auto refresh for the preview server.

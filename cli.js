@@ -54,6 +54,7 @@ const scripts = {
     count: "./builder/scripts/count/index.js",
     backup: "./builder/scripts/backup.js",
     restore: "./builder/scripts/restore.js",
+    mcp: "./builder/scripts/mcp.js",
 }
 
 // --- --- --- --- --- ---
@@ -102,5 +103,11 @@ program.command("backup")
 program.command("restore")
     .description(languageSelector("恢复博客元数据", "Restore blog metadata"))
     .action(commandScriptRunner(scripts.restore))
+
+program.command("mcp")
+    .description(languageSelector("启动 MCP 服务器", "Start MCP server"))
+    .argument("<endpoint>", languageSelector("目标预览服务器地址", "Target preview server endpoint"))
+    .argument("<port>", languageSelector("MCP 服务器端口", "MCP server port"))
+    .action(commandScriptRunner(scripts.mcp))
 
 program.parse(process.argv)
