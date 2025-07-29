@@ -134,5 +134,4 @@ const pathManager = {
     }
 }
 
-
 export default pathManager

@@ -1,4 +1,5 @@
 import articleRender from "./articleRenderer.js"
+import { PagingView } from "../components/paging.js"
 import el from "../utils/dom/el.js"
 import keydownEvent from "../utils/dom/keydownEvent.js"
 import { scrollToTop } from "../utils/dom/scrollControl.js"
@@ -32,6 +33,7 @@ const articleEl        = document.querySelector("article")
 const articleList      = mainEl.querySelector("#article-list")
 const dirDescriptionEl = mainEl.querySelector("#directory-description")
 const updateTimeEl     = mainEl.querySelector("#update-time code")
+/** @type {PagingView} */
 const pagingComponent  = mainEl.querySelector("paging-view")
 
 export default function indexRender(index, itemResolver) {

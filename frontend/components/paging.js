@@ -35,7 +35,7 @@ const btn = content => el("button",
     "class": "icon-btn underline-side"
 })
 
-class PagingView extends HTMLElement {
+export class PagingView extends HTMLElement {
     #elements = {}
 
     constructor() {

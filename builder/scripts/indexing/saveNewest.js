@@ -15,9 +15,13 @@ export default async function(newestList) {
             total: count,
             current: index,
             content: slice.map(item => {
+                const staticPrefix = "static/"
+                const actualPath = item.path.startsWith(staticPrefix)
+                    ? item.path.slice(staticPrefix.length)
+                    : item.path
                 return {
                     title:      item.name,
-                    link:       item.path,
+                    link:       actualPath,
                     createTime: item.createTime
                 }
             }),

@@ -21,8 +21,7 @@ articleList.addEventListener("click", e => {
     if (!(target instanceof HTMLElement)) return
 
     if (target === articleList) {
-        // when click on the `articleList` itself
-        // ignore this event.
+        // when click on the `articleList` itself, ignore this event.
         return
     }
 
@@ -37,6 +36,6 @@ articleList.addEventListener("click", e => {
     if (jumpToData) {
         // in `newest` page
         pageController.open()
-        pathManager.jumpTo(jumpToData)
+        pathManager.jumpTo("static/" + jumpToData)
     }
 })
