@@ -32,7 +32,13 @@ basb-cli build
 basb-cli preview
 ```
 
-## VSCode Extention
+## MCP Server
+
+This CLI program has a build-in MCP server, which can be started by ``basb-cli mcp [target-endpoint] [server-port]``. It will also be started when you use ``basb-cli preview``.
+
+You can also use the [independent package](https://github.com/BHznJNs/BaSB-MCP) or even the [Cloudflare Worker version](https://github.com/BHznJNs/BaSB-MCP-Worker)!
+
+## VSCode Extentions
 
 1. The [official enhancement extension](https://marketplace.visualstudio.com/items?itemName=BHznJNs.basb-ext)
 2. The [linter](https://marketplace.visualstudio.com/items?itemName=huacnlee.autocorrect) for scenes where CJK and English are mixed
