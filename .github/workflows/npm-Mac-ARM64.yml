@@ -43,21 +43,8 @@ jobs:
           fi
         fi
 
-    - name: Fix Rollup installation (ARM64 workaround)
-      run: |
-        # 删除有问题的 rollup 安装
-        rm -rf node_modules/rollup
-        
-        # 重新安装 rollup，强制下载正确的二进制文件
-        npm install rollup@^4.35.0 --no-optional --force
-        
-        # 验证 rollup 安装
-        npx rollup --version
-
-    - name: Run build
-      run: npm run build
-      env:
-        CI: true
+  
+    
 
     - name: Run tests
       run: npm test
