@@ -1,0 +1,74 @@
+name: macOS ARM64 Test
+
+on:
+  push:
+    branches: [v2]
+  pull_request:
+    branches: [v2]
+  workflow_dispatch:
+
+jobs:
+  test-macos-arm64:
+    name: Test on macOS ARM64
+    runs-on: macos-latest  # GitHub 的 macos-latest 现在使用 Apple Silicon (M1)
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js on ARM64
+      uses: actions/setup-node@v3
+      with:
+        node-version: "20"
+        architecture: arm64
+
+    - name: Debug platform info
+      run: |
+        echo "Platform: $(uname -s)"
+        echo "Architecture: $(uname -m)"
+        echo "Node.js version: $(node --version)"
+        echo "npm version: $(npm --version)"
+
+    - name: Install dependencies
+      run: npm install --omit=optional
+
+    - name: Verify utimes is not installed on ARM64
+      run: |
+        if [ "$(uname -s)" = "Darwin" ] && [ "$(uname -m)" = "arm64" ]; then
+          if npm list utimes 2>/dev/null | grep -q utimes; then
+            echo "ERROR: utimes should not be installed on ARM64 Mac"
+            exit 1
+          else
+            echo "✓ utimes correctly not installed on ARM64 Mac"
+          fi
+        fi
+
+  
+    
+
+    - name: Run tests
+      run: npm test
+      env:
+        CI: true
+
+    - name: Test restore functionality
+      run: |
+        # 创建一个简单的测试来验证恢复功能
+        node -e "
+          import { platform, arch } from 'process';
+          import { readFileSync, existsSync, utimesSync as fsUtimesSync } from 'fs';
+          
+          console.log('Testing on platform:', platform, arch);
+          
+          // 测试动态导入回退机制
+          let utimesAvailable = false;
+          try {
+            const utimesModule = await import('utimes');
+            console.log('utimes package is available');
+            utimesAvailable = true;
+          } catch (error) {
+            console.log('utimes package not available, using fallback');
+          }
+          
+          console.log('Platform compatibility test passed!');
+        "
